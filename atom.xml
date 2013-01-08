@@ -1,16 +1,227 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[My Octopress Blog]]></title>
+  <title><![CDATA[天涯望帆]]></title>
   <link href="http://mjason.github.com/atom.xml" rel="self"/>
   <link href="http://mjason.github.com/"/>
-  <updated>2013-01-08T22:22:22+08:00</updated>
+  <updated>2013-01-08T23:50:45+08:00</updated>
   <id>http://mjason.github.com/</id>
   <author>
-    <name><![CDATA[Your Name]]></name>
+    <name><![CDATA[MJ（天涯望帆）]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[简单的rails部署]]></title>
+    <link href="http://mjason.github.com/blog/2013/01/08/jian-dan-de-railsbu-shu/"/>
+    <updated>2013-01-08T22:37:00+08:00</updated>
+    <id>http://mjason.github.com/blog/2013/01/08/jian-dan-de-railsbu-shu</id>
+    <content type="html"><![CDATA[<p>rails的部署现在最流行的肯定是capistrano
+刚开始学习的rails的时候，我也是用这个方式部署，不过每一次写部署脚本太伤了，各种错误，各种调试</p>
+
+<p>自从有一次在ruby-toolbox看到了mina，终于有点感觉得到解救了</p>
+
+<p>根据自己的使用mina的特点主要有：</p>
+
+<ol>
+<li>更加简洁的写法</li>
+<li>更加友好的提示界面</li>
+</ol>
+
+
+<p>所以部署方式现在采用的是（rvm + mina + unicorn)</p>
+
+<p>这里详细记录操作步骤</p>
+
+<h3>安装mina</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1">#in Gemfile</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">group</span> <span class="ss">:development</span> <span class="k">do</span>
+</span><span class='line'>  <span class="n">gem</span> <span class="s1">&#39;mina&#39;</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>初始化mina 配置文件</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1">#cd your app project dir</span>
+</span><span class='line'><span class="n">bundle</span>
+</span><span class='line'><span class="n">mina</span> <span class="n">init</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>配置mina文件</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="nb">require</span> <span class="s1">&#39;mina/bundler&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;mina/rails&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;mina/git&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;mina/rvm&#39;</span>    <span class="c1"># for rvm support. (http://rvm.io)</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">set</span> <span class="ss">:domain</span><span class="p">,</span> <span class="s1">&#39;foobar.com&#39;</span> <span class="c1">#设置你的服务ip地址，或者域名</span>
+</span><span class='line'><span class="n">set</span> <span class="ss">:deploy_to</span><span class="p">,</span> <span class="s1">&#39;/var/www/foobar.com&#39;</span> <span class="c1">#部署的文件目录</span>
+</span><span class='line'><span class="n">set</span> <span class="ss">:repository</span><span class="p">,</span> <span class="s1">&#39;git://...&#39;</span> <span class="c1"># git 地址</span>
+</span><span class='line'><span class="n">set</span> <span class="ss">:branch</span><span class="p">,</span> <span class="s1">&#39;master&#39;</span> <span class="c1"># 确定分支</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">set</span> <span class="ss">:shared_paths</span><span class="p">,</span> <span class="o">[</span><span class="s1">&#39;config/database.yml&#39;</span><span class="p">,</span> <span class="s1">&#39;log&#39;</span><span class="o">]</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># Optional settings:</span>
+</span><span class='line'><span class="n">set</span> <span class="ss">:user</span><span class="p">,</span> <span class="s1">&#39;foobar&#39;</span>    <span class="c1"># ssh 用的用户名.</span>
+</span><span class='line'><span class="c1">#   set :port, &#39;30000&#39;     # SSH 端口，默认22.</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">task</span> <span class="ss">:environment</span> <span class="k">do</span>
+</span><span class='line'>  <span class="n">invoke</span> <span class="ss">:&#39;rvm:use[ruby-1.9.3-p125@default]&#39;</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">#mina setup 时会执行的操作</span>
+</span><span class='line'><span class="n">task</span> <span class="ss">:setup</span> <span class="o">=&gt;</span> <span class="ss">:environment</span> <span class="k">do</span>
+</span><span class='line'>  <span class="n">queue!</span> <span class="sx">%[mkdir -p &quot;</span><span class="si">#{</span><span class="n">deploy_to</span><span class="si">}</span><span class="sx">/shared/log&quot;]</span> <span class="c1"># 创建日志目录</span>
+</span><span class='line'>  <span class="n">queue!</span> <span class="sx">%[chmod g+rx,u+rwx &quot;</span><span class="si">#{</span><span class="n">deploy_to</span><span class="si">}</span><span class="sx">/shared/log&quot;]</span> <span class="c1"># 设置日志目录的权限</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">queue!</span> <span class="sx">%[mkdir -p &quot;</span><span class="si">#{</span><span class="n">deploy_to</span><span class="si">}</span><span class="sx">/shared/config&quot;]</span> <span class="c1">#创建目录</span>
+</span><span class='line'>  <span class="n">queue!</span> <span class="sx">%[chmod g+rx,u+rwx &quot;</span><span class="si">#{</span><span class="n">deploy_to</span><span class="si">}</span><span class="sx">/shared/config&quot;]</span> <span class="c1"># 目录权限设置</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">queue!</span> <span class="sx">%[touch &quot;</span><span class="si">#{</span><span class="n">deploy_to</span><span class="si">}</span><span class="sx">/shared/config/database.yml&quot;]</span> <span class="c1"># 生成服务器的database.yml</span>
+</span><span class='line'>  <span class="n">queue</span>  <span class="sx">%[-----&gt; Be sure to edit &#39;shared/config/database.yml&#39;.]</span> <span class="c1">#提示编辑服务器的database.yml， 可以删除 </span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># 进行mina deploy会进行的操作</span>
+</span><span class='line'><span class="n">desc</span> <span class="s2">&quot;Deploys the current version to the server.&quot;</span>
+</span><span class='line'><span class="n">task</span> <span class="ss">:deploy</span> <span class="o">=&gt;</span> <span class="ss">:environment</span> <span class="k">do</span>
+</span><span class='line'>  <span class="n">deploy</span> <span class="k">do</span>
+</span><span class='line'>    <span class="c1"># Put things that will set up an empty directory into a fully set-up</span>
+</span><span class='line'>    <span class="c1"># instance of your project.</span>
+</span><span class='line'>    <span class="n">invoke</span> <span class="ss">:&#39;git:clone&#39;</span>
+</span><span class='line'>    <span class="n">invoke</span> <span class="ss">:&#39;deploy:link_shared_paths&#39;</span>
+</span><span class='line'>    <span class="n">invoke</span> <span class="ss">:&#39;bundle:install&#39;</span>
+</span><span class='line'>    <span class="n">invoke</span> <span class="ss">:&#39;rails:db_migrate&#39;</span>
+</span><span class='line'>    <span class="n">invoke</span> <span class="ss">:&#39;rails:assets_precompile&#39;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">to</span> <span class="ss">:launch</span> <span class="k">do</span>
+</span><span class='line'>      <span class="n">queue</span> <span class="s1">&#39;touch tmp/restart.txt&#39;</span> <span class="c1"># 服务器重启服务器用的</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>根据自己的项目和服务器信息进行设置之后运行</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># 服务器目录初始化</span>
+</span><span class='line'><span class="n">mina</span> <span class="n">setup</span>
+</span><span class='line'><span class="c1"># 进行项目部署</span>
+</span><span class='line'><span class="n">mina</span> <span class="n">deploy</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这样第一步就完成了</p>
+
+<p>ssh 登录进服务器
+然后建立一个专门用来部署的用户，安装rvm和ruby
+晚上的方法很多，这里就直接贴命令了,基于ubuntu12.04</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">ssh</span> <span class="n">root</span><span class="vi">@ip</span>
+</span><span class='line'><span class="n">adduser</span> <span class="n">deploy</span>
+</span><span class='line'><span class="n">su</span> <span class="n">deploy</span>
+</span><span class='line'><span class="n">curl</span> <span class="o">-</span><span class="n">L</span> <span class="ss">https</span><span class="p">:</span><span class="sr">//</span><span class="n">get</span><span class="o">.</span><span class="n">rvm</span><span class="o">.</span><span class="n">io</span> <span class="o">|</span> <span class="n">bash</span> <span class="o">-</span><span class="n">s</span> <span class="n">stable</span>
+</span><span class='line'><span class="c1"># 安装rvm的依赖</span>
+</span><span class='line'><span class="n">rvm</span> <span class="n">requirements</span>
+</span><span class='line'><span class="n">rvm</span> <span class="n">install</span> <span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span>
+</span><span class='line'><span class="n">rvm</span> <span class="n">use</span> <span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span>
+</span><span class='line'><span class="n">gem</span> <span class="n">install</span> <span class="n">unicorn</span>
+</span><span class='line'><span class="c1"># bootup可以自由写，推荐写项目名称</span>
+</span><span class='line'><span class="n">rvm</span> <span class="n">wrapper</span> <span class="n">ruby</span><span class="o">-</span><span class="mi">1</span><span class="o">.</span><span class="mi">9</span><span class="o">.</span><span class="mi">3</span> <span class="n">bootup</span> <span class="n">unicorn_rails</span>
+</span><span class='line'><span class="n">vim</span> <span class="vg">$HOME</span><span class="o">/.</span><span class="n">rvm</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">bootup_unicorn_rails</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>因为mina的gem是安装在项目的vendor/bundle下面
+所以需要修改一下rvm自动生成的脚本
+将文件中的unicorn_rails 改为 你的项目地址+current/bin/unicorn_rails
+eg: /home/deploy/test1/current/bin/unicorn_rails</p>
+
+<p>接下来就是写启动脚本了，我的shell是以Ruby China的mimosa配置写的，这里就不重复<br>
+直接贴上原帖地址和git地址 <br>
+原帖地址：http://ruby-china.org/topics/471<br>
+他提供的git地址: https://gist.github.com/3547765<br></p>
+
+<p>手工！！！</p>
+]]></content>
+  </entry>
   
 </feed>

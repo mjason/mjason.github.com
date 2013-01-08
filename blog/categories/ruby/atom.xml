@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: ruby | 天涯望帆]]></title>
+  <link href="http://mjason.github.com/blog/categories/ruby/atom.xml" rel="self"/>
+  <link href="http://mjason.github.com/"/>
+  <updated>2013-01-08T23:50:45+08:00</updated>
+  <id>http://mjason.github.com/</id>
+  <author>
+    <name><![CDATA[MJ（天涯望帆）]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[简单的rails部署]]></title>
+    <link href="http://mjason.github.com/blog/2013/01/08/jian-dan-de-railsbu-shu/"/>
+    <updated>2013-01-08T22:37:00+08:00</updated>
+    <id>http://mjason.github.com/blog/2013/01/08/jian-dan-de-railsbu-shu</id>
+    <content type="html"><![CDATA[<p>rails的部署现在最流行的肯定是capistrano
+刚开始学习的rails的时候，我也是用这个方式部署，不过每一次写部署脚本太伤了，各种错误，各种调试</p>
+
+<p>自从有一次在ruby-toolbox看到了mina，终于有点感觉得到解救了</p>
+
+<p>根据自己的使用mina的特点主要有：</p>
+
+<ol>
+<li>更加简洁的写法</li>
+<li>更加友好的提示界面</li>
+</ol>
+
+
+<p>所以部署方式现在采用的是（rvm + mina + unicorn)</p>
+
+<p>这里详细记录操作步骤</p>
+
+<h3>安装mina</h3>
+
+<p>```ruby</p>
+
+<h1>in Gemfile</h1>
+
+<p>group :development do
+  gem 'mina'
+end
+```</p>
+
+<h3>初始化mina 配置文件</h3>
+
+<p>```</p>
+
+<h1>cd your app project dir</h1>
+
+<p>bundle
+mina init
+```</p>
+
+<h3>配置mina文件</h3>
+
+<p>```ruby
+require 'mina/bundler'
+require 'mina/rails'
+require 'mina/git'
+require 'mina/rvm'    # for rvm support. (http://rvm.io)</p>
+
+<p>set :domain, 'foobar.com' #设置你的服务ip地址，或者域名
+set :deploy_to, '/var/www/foobar.com' #部署的文件目录
+set :repository, 'git://...' # git 地址
+set :branch, 'master' # 确定分支</p>
+
+<p>set :shared_paths, ['config/database.yml', 'log']</p>
+
+<h1>Optional settings:</h1>
+
+<p>set :user, 'foobar'    # ssh 用的用户名.</p>
+
+<h1>set :port, '30000'     # SSH 端口，默认22.</h1>
+
+<p>task :environment do
+  invoke :'rvm:use[ruby-1.9.3-p125@default]'
+end</p>
+
+<h1>mina setup 时会执行的操作</h1>
+
+<p>task :setup => :environment do
+  queue! %[mkdir -p "#{deploy_to}/shared/log"] # 创建日志目录
+  queue! %[chmod g+rx,u+rwx "#{deploy_to}/shared/log"] # 设置日志目录的权限</p>
+
+<p>  queue! %[mkdir -p "#{deploy_to}/shared/config"] #创建目录
+  queue! %[chmod g+rx,u+rwx "#{deploy_to}/shared/config"] # 目录权限设置</p>
+
+<p>  queue! %[touch "#{deploy_to}/shared/config/database.yml"] # 生成服务器的database.yml
+  queue  %[-----> Be sure to edit 'shared/config/database.yml'.] #提示编辑服务器的database.yml， 可以删除
+end</p>
+
+<h1>进行mina deploy会进行的操作</h1>
+
+<p>desc "Deploys the current version to the server."
+task :deploy => :environment do
+  deploy do</p>
+
+<pre><code># Put things that will set up an empty directory into a fully set-up
+# instance of your project.
+invoke :'git:clone'
+invoke :'deploy:link_shared_paths'
+invoke :'bundle:install'
+invoke :'rails:db_migrate'
+invoke :'rails:assets_precompile'
+
+to :launch do
+  queue 'touch tmp/restart.txt' # 服务器重启服务器用的
+end
+</code></pre>
+
+<p>  end
+end
+```</p>
+
+<p>根据自己的项目和服务器信息进行设置之后运行
+```</p>
+
+<h1>服务器目录初始化</h1>
+
+<p>mina setup</p>
+
+<h1>进行项目部署</h1>
+
+<p>mina deploy
+```</p>
+
+<p>这样第一步就完成了</p>
+
+<p>ssh 登录进服务器
+然后建立一个专门用来部署的用户，安装rvm和ruby
+晚上的方法很多，这里就直接贴命令了,基于ubuntu12.04</p>
+
+<p>```
+ssh root@ip
+adduser deploy
+su deploy
+curl -L https://get.rvm.io | bash -s stable</p>
+
+<h1>安装rvm的依赖</h1>
+
+<p>rvm requirements
+rvm install 1.9.3
+rvm use 1.9.3
+gem install unicorn</p>
+
+<h1>bootup可以自由写，推荐写项目名称</h1>
+
+<p>rvm wrapper ruby-1.9.3 bootup unicorn_rails
+vim $HOME/.rvm/bin/bootup_unicorn_rails
+```</p>
+
+<p>因为mina的gem是安装在项目的vendor/bundle下面
+所以需要修改一下rvm自动生成的脚本
+将文件中的unicorn_rails 改为 你的项目地址+current/bin/unicorn_rails
+eg: /home/deploy/test1/current/bin/unicorn_rails</p>
+
+<p>接下来就是写启动脚本了，我的shell是以Ruby China的mimosa配置写的，这里就不重复<br>
+直接贴上原帖地址和git地址 <br>
+原帖地址：http://ruby-china.org/topics/471<br>
+他提供的git地址: https://gist.github.com/3547765<br></p>
+
+<p>手工！！！</p>
+]]></content>
+  </entry>
+  
+</feed>
