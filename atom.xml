@@ -4,7 +4,7 @@
   <title><![CDATA[天涯望帆]]></title>
   <link href="http://mjason.github.com/atom.xml" rel="self"/>
   <link href="http://mjason.github.com/"/>
-  <updated>2013-01-08T23:50:45+08:00</updated>
+  <updated>2013-01-08T23:56:48+08:00</updated>
   <id>http://mjason.github.com/</id>
   <author>
     <name><![CDATA[MJ（天涯望帆）]]></name>
@@ -181,7 +181,7 @@
 
 <p>ssh 登录进服务器
 然后建立一个专门用来部署的用户，安装rvm和ruby
-晚上的方法很多，这里就直接贴命令了,基于ubuntu12.04</p>
+网上的方法很多，这里就直接贴命令了,基于ubuntu12.04</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
