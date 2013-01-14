@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: cancan | 天涯望帆]]></title>
+  <link href="http://mjason.github.com/blog/categories/cancan/atom.xml" rel="self"/>
+  <link href="http://mjason.github.com/"/>
+  <updated>2013-01-14T14:39:56+08:00</updated>
+  <id>http://mjason.github.com/</id>
+  <author>
+    <name><![CDATA[MJ（天涯望帆）]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[rails_admin的权限控制]]></title>
+    <link href="http://mjason.github.com/blog/2013/01/14/rails-adminde-quan-xian-kong-zhi/"/>
+    <updated>2013-01-14T14:32:00+08:00</updated>
+    <id>http://mjason.github.com/blog/2013/01/14/rails-adminde-quan-xian-kong-zhi</id>
+    <content type="html"><![CDATA[<p>rails_admin的权限控制中心</p>
+
+<p>先在rails_admin的配置文件写入</p>
+
+<p><code>ruby
+RailsAdmin.config do |config|
+  config.authorize_with :cancan
+end
+</code></p>
+
+<p>之后使用rails 生成器生成cancan的控制文件,编辑文件
+```ruby
+class Ability
+  include CanCan::Ability</p>
+
+<p>  def initialize(user)</p>
+
+<pre><code>user ||= User.new
+if user &amp;&amp; user.is_superadmin?
+  can :access, :rails_admin   #打开路由
+  can :dashboard   #打开统计表
+  can :manage, :all #这个角色可以读取所有的表
+elsif user.is_admin?
+  can :access, :rails_admin 
+  can :dashboard
+  can :manage, [Person] # 这个用户只能管理这个模型
+end
+</code></pre>
+
+<p>  end
+end
+```</p>
+]]></content>
+  </entry>
+  
+</feed>
