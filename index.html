@@ -9,14 +9,8 @@
   <meta name="author" content="MJ（天涯望帆）">
 
   
-  <meta name="description" content="rails_admin的权限控制中心 先在rails_admin的配置文件写入 1
-2
-3
-RailsAdmin.config do |config| config.authorize_with :cancan
-end 之后使用rails 生成器生成cancan的控制文件,编辑文件 1
-2
-3
-4 &hellip;">
+  <meta name="description" content="这段有个小任务，需要写一个爬虫，进行数据的分析
+原本使用ruby写，可是目标网站需要多重的跳转，造成网络io延时很高，分析一次目标网站都需要10秒甚者更长。 这两天使用golang重写，把计算负责的和高io延时的全部并发出去，时间从原来的10秒降低到现在的3秒多一些。 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -71,6 +65,90 @@ end 之后使用rails 生成器生成cancan的控制文件,编辑文件 1
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/01/29/golangjie-xi-wang-ye-ru-men/">Golang解析网页入门</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-01-29T09:17:00+08:00" pubdate data-updated="true">Jan 29<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/01/29/golangjie-xi-wang-ye-ru-men/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>这段有个小任务，需要写一个爬虫，进行数据的分析
+原本使用ruby写，可是目标网站需要多重的跳转，造成网络io延时很高，分析一次目标网站都需要10秒甚者更长。</p>
+
+<p>这两天使用golang重写，把计算负责的和高io延时的全部并发出去，时间从原来的10秒降低到现在的3秒多一些。</p>
+
+<p>使用的golang的库是goquery
+下载方式是：
+go get github.com/PuerkitoBio/goquery</p>
+
+<p>使用这个库需要使用golang的exp库
+下载这个库的方法是：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>% <span class="nb">cd</span> <span class="nv">$GOPATH</span>/src
+</span><span class='line'>% hg clone https://code.google.com/p/go go-exp
+</span><span class='line'>requesting all changes
+</span><span class='line'>adding changesets
+</span><span class='line'>adding manifests
+</span><span class='line'>adding file changes
+</span><span class='line'>added 13323 changesets with 50185 changes to 7251 files <span class="o">(</span>+5 heads<span class="o">)</span>
+</span><span class='line'>updating to branch default
+</span><span class='line'>3464 files updated, 0 files merged, 0 files removed, 0 files unresolved
+</span><span class='line'>% mv go-exp/src/pkg/exp .
+</span><span class='line'>% rm -rf go-exp
+</span><span class='line'>% go install exp/...
+</span><span class='line'>%
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>使用这个goquery可以像jquery那样去分析dom</p>
+
+<p>官方的doc可以打开自己本地的
+godoc -http=&#8221;:9090&#8221;
+查看
+也可以到godoc网站去看</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -411,6 +489,10 @@ eg: /home/deploy/test1/current/bin/unicorn_rails</p>
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/01/29/golangjie-xi-wang-ye-ru-men/">golang解析网页入门</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2013/01/14/rails-adminde-quan-xian-kong-zhi/">rails_admin的权限控制</a>
