@@ -4,7 +4,7 @@
   <title><![CDATA[天涯望帆]]></title>
   <link href="http://mjason.github.com/atom.xml" rel="self"/>
   <link href="http://mjason.github.com/"/>
-  <updated>2013-01-29T09:27:10+08:00</updated>
+  <updated>2013-01-31T17:32:42+08:00</updated>
   <id>http://mjason.github.com/</id>
   <author>
     <name><![CDATA[MJ（天涯望帆）]]></name>
@@ -12,6 +12,24 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[移动api设计注意事项]]></title>
+    <link href="http://mjason.github.com/blog/2013/01/29/gei-xue-xi-opa%5B%3F%5D-ge-jie-kou/"/>
+    <updated>2013-01-29T21:35:00+08:00</updated>
+    <id>http://mjason.github.com/blog/2013/01/29/gei-xue-xi-opa[?]-ge-jie-kou</id>
+    <content type="html"><![CDATA[<p>工作室的星星，近期用nodejs写了一套api，看了源码和实现之后，发现有几点十分值得我学习的,</p>
+
+<p>记录如下：</p>
+
+<p>不要把token值放到url里面，原因很简单服务器日志一般会记录这些东西，有风险，把他放到http header上面去是一个好的选择</p>
+
+<p>把系统进行切分：
+我们把系统分成了3个部分，每一部分都有forever单独启动，这样，对于我们持续部署是有很大的好处的</p>
+
+<p>瞎扯完毕，继续工作</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[golang解析网页入门]]></title>

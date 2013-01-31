@@ -5,11 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Category: golang - 天涯望帆</title>
+  <title>移动api设计注意事项 - 天涯望帆</title>
   <meta name="author" content="MJ（天涯望帆）">
 
   
-  <meta name="description" content="Category: golang">
+  <meta name="description" content="工作室的星星，近期用nodejs写了一套api，看了源码和实现之后，发现有几点十分值得我学习的, 记录如下： 不要把token值放到url里面，原因很简单服务器日志一般会记录这些东西，有风险，把他放到http header上面去是一个好的选择 把系统进行切分：
+我们把系统分成了3个部分， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://mjason.github.comblog/categories/golang/">
+  <link rel="canonical" href="http://mjason.github.com/blog/2013/01/29/gei-xue-xi-opa%5B%3F%5D-ge-jie-kou/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -63,36 +64,94 @@
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Category: Golang</h1>
+    
+      <h1 class="entry-title">移动api设计注意事项</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-01-29T21:35:00+08:00" pubdate data-updated="true">Jan 29<span>th</span>, 2013</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives" class="category">
 
 
+<div class="entry-content"><p>工作室的星星，近期用nodejs写了一套api，看了源码和实现之后，发现有几点十分值得我学习的,</p>
 
-  
-  <h2>2013</h2>
+<p>记录如下：</p>
 
-<article>
-  
-<h1><a href="/blog/2013/01/29/golangjie-xi-wang-ye-ru-men/">golang解析网页入门</a></h1>
-<time datetime="2013-01-29T09:17:00+08:00" pubdate><span class='month'>Jan</span> <span class='day'>29</span> <span class='year'>2013</span></time>
+<p>不要把token值放到url里面，原因很简单服务器日志一般会记录这些东西，有风险，把他放到http header上面去是一个好的选择</p>
 
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/golang/'>golang</a>, <a class='category' href='/blog/categories/goquery/'>goquery</a></span>
-</footer>
+<p>把系统进行切分：
+我们把系统分成了3个部分，每一部分都有forever单独启动，这样，对于我们持续部署是有很大的好处的</p>
 
-
-</article>
-
+<p>瞎扯完毕，继续工作</p>
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">MJ（天涯望帆）</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-01-29T21:35:00+08:00" pubdate data-updated="true">Jan 29<span>th</span>, 2013</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/01/29/golangjie-xi-wang-ye-ru-men/" title="Previous Post: golang解析网页入门">&laquo; golang解析网页入门</a>
+      
+      
+    </p>
+  </footer>
 </article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
 
@@ -144,7 +203,10 @@
       var disqus_shortname = 'tywf91';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://mjason.github.com/blog/2013/01/29/gei-xue-xi-opa%5B%3F%5D-ge-jie-kou/';
+        var disqus_url = 'http://mjason.github.com/blog/2013/01/29/gei-xue-xi-opa%5B%3F%5D-ge-jie-kou/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

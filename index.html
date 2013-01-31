@@ -9,8 +9,8 @@
   <meta name="author" content="MJ（天涯望帆）">
 
   
-  <meta name="description" content="这段有个小任务，需要写一个爬虫，进行数据的分析
-原本使用ruby写，可是目标网站需要多重的跳转，造成网络io延时很高，分析一次目标网站都需要10秒甚者更长。 这两天使用golang重写，把计算负责的和高io延时的全部并发出去，时间从原来的10秒降低到现在的3秒多一些。 &hellip;">
+  <meta name="description" content="工作室的星星，近期用nodejs写了一套api，看了源码和实现之后，发现有几点十分值得我学习的, 记录如下： 不要把token值放到url里面，原因很简单服务器日志一般会记录这些东西，有风险，把他放到http header上面去是一个好的选择 把系统进行切分：
+我们把系统分成了3个部分， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -65,6 +65,53 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/01/29/gei-xue-xi-opa%5B%3F%5D-ge-jie-kou/">移动api设计注意事项</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-01-29T21:35:00+08:00" pubdate data-updated="true">Jan 29<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/01/29/gei-xue-xi-opa%5B%3F%5D-ge-jie-kou/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>工作室的星星，近期用nodejs写了一套api，看了源码和实现之后，发现有几点十分值得我学习的,</p>
+
+<p>记录如下：</p>
+
+<p>不要把token值放到url里面，原因很简单服务器日志一般会记录这些东西，有风险，把他放到http header上面去是一个好的选择</p>
+
+<p>把系统进行切分：
+我们把系统分成了3个部分，每一部分都有forever单独启动，这样，对于我们持续部署是有很大的好处的</p>
+
+<p>瞎扯完毕，继续工作</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -489,6 +536,10 @@ eg: /home/deploy/test1/current/bin/unicorn_rails</p>
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/01/29/gei-xue-xi-opa%5B%3F%5D-ge-jie-kou/">移动api设计注意事项</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2013/01/29/golangjie-xi-wang-ye-ru-men/">golang解析网页入门</a>
