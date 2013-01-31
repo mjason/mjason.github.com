@@ -9,8 +9,9 @@
   <meta name="author" content="MJ（天涯望帆）">
 
   
-  <meta name="description" content="工作室的星星，近期用nodejs写了一套api，看了源码和实现之后，发现有几点十分值得我学习的, 记录如下： 不要把token值放到url里面，原因很简单服务器日志一般会记录这些东西，有风险，把他放到http header上面去是一个好的选择 把系统进行切分：
-我们把系统分成了3个部分， &hellip;">
+  <meta name="description" content="认识工具 在开发ios过程中不可避免要使用第三方的开发库，对于习惯了ruby，golang，python等编程语言的人来说安装这些东西无疑是痛苦的，总结起来步骤就有一下几个 下载源码
+根据第三方库的文档进行项目设置
+然后解决掉各种可能会出现的错误 遇到新的项目继续上面的工作，这是没办法忍受的事情， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -65,6 +66,97 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/01/31/iosxue-xi-bi-ji-1-cocoapods/">Ios学习笔记1&#8211;cocoapods</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-01-31T19:07:00+08:00" pubdate data-updated="true">Jan 31<span>st</span>, 2013</time>
+        
+         | <a href="/blog/2013/01/31/iosxue-xi-bi-ji-1-cocoapods/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>认识工具</h3>
+
+<p>在开发ios过程中不可避免要使用第三方的开发库，对于习惯了ruby，golang，python等编程语言的人来说安装这些东西无疑是痛苦的，总结起来步骤就有一下几个<br></p>
+
+<ol>
+<li>下载源码</li>
+<li>根据第三方库的文档进行项目设置</li>
+<li>然后解决掉各种可能会出现的错误</li>
+</ol>
+
+
+<p>遇到新的项目继续上面的工作，这是没办法忍受的事情，好在ios的黑客都是非常酷的人，他们开发出了像ruby的bundley一样方便的东西名字叫做<a href="http://cocoapods.org/" title="cocoapods">cocoapods</a></p>
+
+<p>因为某些原因官网上不了，请各位看官自备梯子。</p>
+
+<h3>安装cocoapods</h3>
+
+<ol>
+<li>首先你要安装好ruby，这个网上有很多，这里我就直接写出命令给各位了</li>
+</ol>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c">#安装rvm,并安装ruby，在mac下只需要用下面一条命令</span>
+</span><span class='line'>curl -L https://get.rvm.io | bash -s stable --ruby
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ol>
+<li>安装cocoapods</li>
+</ol>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>gem gem install cocoapods
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ol>
+<li>好了之后，请进入你的ios项目里面新建一个名字叫做的Podfile的文件，在文件里面写入类似下面的文本</li>
+</ol>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">platform</span> <span class="ss">:ios</span><span class="p">,</span> <span class="s1">&#39;5.0&#39;</span>
+</span><span class='line'><span class="n">pod</span> <span class="s1">&#39;AFNetworking&#39;</span><span class="p">,</span> <span class="s1">&#39;~&gt;1.1.0&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><em>注解一下：第一版是说明你使用ios的库，并使用5.0的sdk<br>
+第二行就是你的需要用的库，格式是pod &#8216;库的名称&#8217;, &#8216;版本号&#8217;</em><br>
+4.使用pod install进行安装库，安装完毕之后是使用项目目录下的xxx.xcworkspace进行编程就可以了</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -536,6 +628,10 @@ eg: /home/deploy/test1/current/bin/unicorn_rails</p>
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/01/31/iosxue-xi-bi-ji-1-cocoapods/">ios学习笔记1&#8211;cocoapods</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2013/01/29/gei-xue-xi-opa%5B%3F%5D-ge-jie-kou/">移动api设计注意事项</a>

@@ -5,18 +5,13 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>rails_admin的权限控制 - 天涯望帆</title>
+  <title>ios学习笔记1--cocoapods - 天涯望帆</title>
   <meta name="author" content="MJ（天涯望帆）">
 
   
-  <meta name="description" content="rails_admin的权限控制中心 先在rails_admin的配置文件写入 1
-2
-3
-RailsAdmin.config do |config| config.authorize_with :cancan
-end 之后使用rails 生成器生成cancan的控制文件,编辑文件 1
-2
-3
-4 &hellip;">
+  <meta name="description" content="认识工具 在开发ios过程中不可避免要使用第三方的开发库，对于习惯了ruby，golang，python等编程语言的人来说安装这些东西无疑是痛苦的，总结起来步骤就有一下几个 下载源码
+根据第三方库的文档进行项目设置
+然后解决掉各种可能会出现的错误 遇到新的项目继续上面的工作，这是没办法忍受的事情， &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -25,7 +20,7 @@ end 之后使用rails 生成器生成cancan的控制文件,编辑文件 1
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://mjason.github.com/blog/2013/01/14/rails-adminde-quan-xian-kong-zhi/">
+  <link rel="canonical" href="http://mjason.github.com/blog/2013/01/31/iosxue-xi-bi-ji-1-cocoapods/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -74,7 +69,7 @@ end 之后使用rails 生成器生成cancan的控制文件,编辑文件 1
   
   <header>
     
-      <h1 class="entry-title">Rails_admin的权限控制</h1>
+      <h1 class="entry-title">Ios学习笔记1--cocoapods</h1>
     
     
       <p class="meta">
@@ -90,7 +85,7 @@ end 之后使用rails 生成器生成cancan的控制文件,编辑文件 1
   
 
 
-<time datetime="2013-01-14T14:32:00+08:00" pubdate data-updated="true">Jan 14<span>th</span>, 2013</time>
+<time datetime="2013-01-31T19:07:00+08:00" pubdate data-updated="true">Jan 31<span>st</span>, 2013</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -99,57 +94,60 @@ end 之后使用rails 生成器生成cancan的控制文件,编辑文件 1
   </header>
 
 
-<div class="entry-content"><p>rails_admin的权限控制中心</p>
+<div class="entry-content"><h3>认识工具</h3>
 
-<p>先在rails_admin的配置文件写入</p>
+<p>在开发ios过程中不可避免要使用第三方的开发库，对于习惯了ruby，golang，python等编程语言的人来说安装这些东西无疑是痛苦的，总结起来步骤就有一下几个<br></p>
+
+<ol>
+<li>下载源码</li>
+<li>根据第三方库的文档进行项目设置</li>
+<li>然后解决掉各种可能会出现的错误</li>
+</ol>
+
+
+<p>遇到新的项目继续上面的工作，这是没办法忍受的事情，好在ios的黑客都是非常酷的人，他们开发出了像ruby的bundley一样方便的东西名字叫做<a href="http://cocoapods.org/" title="cocoapods">cocoapods</a></p>
+
+<p>因为某些原因官网上不了，请各位看官自备梯子。</p>
+
+<h3>安装cocoapods</h3>
+
+<ol>
+<li>首先你要安装好ruby，这个网上有很多，这里我就直接写出命令给各位了</li>
+</ol>
+
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">RailsAdmin</span><span class="o">.</span><span class="n">config</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
-</span><span class='line'>  <span class="n">config</span><span class="o">.</span><span class="n">authorize_with</span> <span class="ss">:cancan</span>
-</span><span class='line'><span class="k">end</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c">#安装rvm,并安装ruby，在mac下只需要用下面一条命令</span>
+</span><span class='line'>curl -L https://get.rvm.io | bash -s stable --ruby
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>之后使用rails 生成器生成cancan的控制文件,编辑文件</p>
+<ol>
+<li>安装cocoapods</li>
+</ol>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>gem gem install cocoapods
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ol>
+<li>好了之后，请进入你的ios项目里面新建一个名字叫做的Podfile的文件，在文件里面写入类似下面的文本</li>
+</ol>
+
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Ability</span>
-</span><span class='line'>  <span class="kp">include</span> <span class="ss">CanCan</span><span class="p">:</span><span class="ss">:Ability</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
-</span><span class='line'>    <span class="n">user</span> <span class="o">||=</span> <span class="no">User</span><span class="o">.</span><span class="n">new</span>
-</span><span class='line'>    <span class="k">if</span> <span class="n">user</span> <span class="o">&amp;&amp;</span> <span class="n">user</span><span class="o">.</span><span class="n">is_superadmin?</span>
-</span><span class='line'>      <span class="n">can</span> <span class="ss">:access</span><span class="p">,</span> <span class="ss">:rails_admin</span>   <span class="c1">#打开路由</span>
-</span><span class='line'>      <span class="n">can</span> <span class="ss">:dashboard</span>   <span class="c1">#打开统计表</span>
-</span><span class='line'>      <span class="n">can</span> <span class="ss">:manage</span><span class="p">,</span> <span class="ss">:all</span> <span class="c1">#这个角色可以读取所有的表</span>
-</span><span class='line'>    <span class="k">elsif</span> <span class="n">user</span><span class="o">.</span><span class="n">is_admin?</span>
-</span><span class='line'>      <span class="n">can</span> <span class="ss">:access</span><span class="p">,</span> <span class="ss">:rails_admin</span>
-</span><span class='line'>      <span class="n">can</span> <span class="ss">:dashboard</span>
-</span><span class='line'>      <span class="n">can</span> <span class="ss">:manage</span><span class="p">,</span> <span class="o">[</span><span class="no">Person</span><span class="o">]</span> <span class="c1"># 这个用户只能管理这个模型</span>
-</span><span class='line'>    <span class="k">end</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">platform</span> <span class="ss">:ios</span><span class="p">,</span> <span class="s1">&#39;5.0&#39;</span>
+</span><span class='line'><span class="n">pod</span> <span class="s1">&#39;AFNetworking&#39;</span><span class="p">,</span> <span class="s1">&#39;~&gt;1.1.0&#39;</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-
+<p><em>注解一下：第一版是说明你使用ios的库，并使用5.0的sdk<br>
+第二行就是你的需要用的库，格式是pod &#8216;库的名称&#8217;, &#8216;版本号&#8217;</em><br>
+4.使用pod install进行安装库，安装完毕之后是使用项目目录下的xxx.xcworkspace进行编程就可以了</p>
 </div>
 
 
@@ -172,12 +170,12 @@ end 之后使用rails 生成器生成cancan的控制文件,编辑文件 1
   
 
 
-<time datetime="2013-01-14T14:32:00+08:00" pubdate data-updated="true">Jan 14<span>th</span>, 2013</time>
+<time datetime="2013-01-31T19:07:00+08:00" pubdate data-updated="true">Jan 31<span>st</span>, 2013</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/cancan/'>cancan</a>, <a class='category' href='/blog/categories/rails-admin/'>rails_admin</a>, <a class='category' href='/blog/categories/ruby/'>ruby</a>
+    <a class='category' href='/blog/categories/ios/'>ios</a>
   
 </span>
 
@@ -193,10 +191,8 @@ end 之后使用rails 生成器生成cancan的控制文件,编辑文件 1
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2013/01/08/jian-dan-de-railsbu-shu/" title="Previous Post: 简单的rails部署">&laquo; 简单的rails部署</a>
+        <a class="basic-alignment left" href="/blog/2013/01/29/gei-xue-xi-opa%5B%3F%5D-ge-jie-kou/" title="Previous Post: 移动api设计注意事项">&laquo; 移动api设计注意事项</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2013/01/29/golangjie-xi-wang-ye-ru-men/" title="Next Post: golang解析网页入门">golang解析网页入门 &raquo;</a>
       
     </p>
   </footer>
@@ -263,8 +259,8 @@ end 之后使用rails 生成器生成cancan的控制文件,编辑文件 1
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://mjason.github.com/blog/2013/01/14/rails-adminde-quan-xian-kong-zhi/';
-        var disqus_url = 'http://mjason.github.com/blog/2013/01/14/rails-adminde-quan-xian-kong-zhi/';
+        var disqus_identifier = 'http://mjason.github.com/blog/2013/01/31/iosxue-xi-bi-ji-1-cocoapods/';
+        var disqus_url = 'http://mjason.github.com/blog/2013/01/31/iosxue-xi-bi-ji-1-cocoapods/';
         var disqus_script = 'embed.js';
       
     (function () {
