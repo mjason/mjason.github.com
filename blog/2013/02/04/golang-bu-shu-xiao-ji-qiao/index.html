@@ -5,12 +5,14 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>移动api设计注意事项 - 天涯望帆</title>
+  <title>golang 部署小技巧 - 天涯望帆</title>
   <meta name="author" content="MJ（天涯望帆）">
 
   
-  <meta name="description" content="工作室的星星，近期用nodejs写了一套api，看了源码和实现之后，发现有几点十分值得我学习的, 记录如下： 不要把token值放到url里面，原因很简单服务器日志一般会记录这些东西，有风险，把他放到http header上面去是一个好的选择 把系统进行切分：
-我们把系统分成了3个部分， &hellip;">
+  <meta name="description" content="golang的部署是很简单的事情，记录我这几天用到的部署技巧 如果你是第一次进行交叉编译， 那么执行下面的操作 1
+2
+$ cd /usr/local/go/src
+$ CGO_ENABLED=0 GOOS=linux GOARCH=amd64 ./make.bash 然后运行 1 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +21,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://mjason.github.com/blog/2013/01/29/gei-xue-xi-opa%5B%3F%5D-ge-jie-kou/">
+  <link rel="canonical" href="http://mjason.github.com/blog/2013/02/04/golang-bu-shu-xiao-ji-qiao/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -68,7 +70,7 @@
   
   <header>
     
-      <h1 class="entry-title">移动api设计注意事项</h1>
+      <h1 class="entry-title">Golang 部署小技巧</h1>
     
     
       <p class="meta">
@@ -84,7 +86,7 @@
   
 
 
-<time datetime="2013-01-29T21:35:00+08:00" pubdate data-updated="true">Jan 29<span>th</span>, 2013</time>
+<time datetime="2013-02-04T19:51:00+08:00" pubdate data-updated="true">Feb 4<span>th</span>, 2013</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -93,16 +95,61 @@
   </header>
 
 
-<div class="entry-content"><p>工作室的星星，近期用nodejs写了一套api，看了源码和实现之后，发现有几点十分值得我学习的,</p>
+<div class="entry-content"><p>golang的部署是很简单的事情，记录我这几天用到的部署技巧</p>
 
-<p>记录如下：</p>
+<p>如果你是第一次进行交叉编译， 那么执行下面的操作</p>
 
-<p>不要把token值放到url里面，原因很简单服务器日志一般会记录这些东西，有风险，把他放到http header上面去是一个好的选择</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span><span class="nb">cd</span> /usr/local/go/src
+</span><span class='line'><span class="nv">$ CGO_ENABLED</span><span class="o">=</span>0 <span class="nv">GOOS</span><span class="o">=</span>linux <span class="nv">GOARCH</span><span class="o">=</span>amd64 ./make.bash
+</span></code></pre></td></tr></table></div></figure>
 
-<p>把系统进行切分：
-我们把系统分成了3个部分，每一部分都有forever单独启动，这样，对于我们持续部署是有很大的好处的</p>
 
-<p>瞎扯完毕，继续工作</p>
+<p>然后运行</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">CGO_ENABLED</span><span class="o">=</span>0 <span class="nv">GOOS</span><span class="o">=</span>linux <span class="nv">GOARCH</span><span class="o">=</span>amd64 go build xxx.go
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>之后把编译好的文件发到服务器就好了</p>
+
+<p>下面配置upstart把项目启动
+sudo vim /etc/init/xxx.conf</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>description     <span class="s2">&quot;xxx&quot;</span>
+</span><span class='line'>author          <span class="s2">&quot;mjason&quot;</span>
+</span><span class='line'>
+</span><span class='line'>start on <span class="o">(</span>net-device-up
+</span><span class='line'>          and <span class="nb">local</span>-filesystems
+</span><span class='line'>          and runlevel <span class="o">[</span>2345<span class="o">])</span>
+</span><span class='line'>
+</span><span class='line'>stop on runlevel <span class="o">[</span>016<span class="o">]</span>
+</span><span class='line'>
+</span><span class='line'>respawn
+</span><span class='line'>
+</span><span class='line'><span class="nb">exec</span> /path/file
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>最后使用sudo service xxx start</p>
+
+<p>大功告成</p>
+
+<p>然后用server</p>
 </div>
 
 
@@ -125,8 +172,14 @@
   
 
 
-<time datetime="2013-01-29T21:35:00+08:00" pubdate data-updated="true">Jan 29<span>th</span>, 2013</time>
+<time datetime="2013-02-04T19:51:00+08:00" pubdate data-updated="true">Feb 4<span>th</span>, 2013</time>
       
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/golang/'>golang</a>, <a class='category' href='/blog/categories/部署/'>部署</a>
+  
+</span>
 
 
     </p>
@@ -140,10 +193,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2013/01/29/golangjie-xi-wang-ye-ru-men/" title="Previous Post: golang解析网页入门">&laquo; golang解析网页入门</a>
+        <a class="basic-alignment left" href="/blog/2013/01/31/iosxue-xi-bi-ji-1-cocoapods/" title="Previous Post: ios学习笔记1--cocoapods">&laquo; ios学习笔记1--cocoapods</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2013/01/31/iosxue-xi-bi-ji-1-cocoapods/" title="Next Post: ios学习笔记1--cocoapods">ios学习笔记1--cocoapods &raquo;</a>
       
     </p>
   </footer>
@@ -210,8 +261,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://mjason.github.com/blog/2013/01/29/gei-xue-xi-opa%5B%3F%5D-ge-jie-kou/';
-        var disqus_url = 'http://mjason.github.com/blog/2013/01/29/gei-xue-xi-opa%5B%3F%5D-ge-jie-kou/';
+        var disqus_identifier = 'http://mjason.github.com/blog/2013/02/04/golang-bu-shu-xiao-ji-qiao/';
+        var disqus_url = 'http://mjason.github.com/blog/2013/02/04/golang-bu-shu-xiao-ji-qiao/';
         var disqus_script = 'embed.js';
       
     (function () {

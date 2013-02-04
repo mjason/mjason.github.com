@@ -4,7 +4,7 @@
   <title><![CDATA[Category: 部署 | 天涯望帆]]></title>
   <link href="http://mjason.github.com/blog/categories/部署/atom.xml" rel="self"/>
   <link href="http://mjason.github.com/"/>
-  <updated>2013-01-31T19:30:02+08:00</updated>
+  <updated>2013-02-04T19:58:41+08:00</updated>
   <id>http://mjason.github.com/</id>
   <author>
     <name><![CDATA[MJ（天涯望帆）]]></name>
@@ -12,6 +12,52 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[golang 部署小技巧]]></title>
+    <link href="http://mjason.github.com/blog/2013/02/04/golang-bu-shu-xiao-ji-qiao/"/>
+    <updated>2013-02-04T19:51:00+08:00</updated>
+    <id>http://mjason.github.com/blog/2013/02/04/golang-bu-shu-xiao-ji-qiao</id>
+    <content type="html"><![CDATA[<p>golang的部署是很简单的事情，记录我这几天用到的部署技巧</p>
+
+<p>如果你是第一次进行交叉编译， 那么执行下面的操作
+<code>bash
+$ cd /usr/local/go/src
+$ CGO_ENABLED=0 GOOS=linux GOARCH=amd64 ./make.bash
+</code></p>
+
+<p>然后运行
+<code>bash
+CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build xxx.go
+</code></p>
+
+<p>之后把编译好的文件发到服务器就好了</p>
+
+<p>下面配置upstart把项目启动
+sudo vim /etc/init/xxx.conf
+```bash
+description     "xxx"
+author          "mjason"</p>
+
+<p>start on (net-device-up</p>
+
+<pre><code>      and local-filesystems
+      and runlevel [2345])
+</code></pre>
+
+<p>stop on runlevel [016]</p>
+
+<p>respawn</p>
+
+<p>exec /path/file                 <br/>
+```
+最后使用sudo service xxx start</p>
+
+<p>大功告成</p>
+
+<p>然后用server</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[简单的rails部署]]></title>

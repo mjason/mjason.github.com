@@ -4,7 +4,7 @@
   <title><![CDATA[天涯望帆]]></title>
   <link href="http://mjason.github.com/atom.xml" rel="self"/>
   <link href="http://mjason.github.com/"/>
-  <updated>2013-01-31T19:30:02+08:00</updated>
+  <updated>2013-02-04T19:58:41+08:00</updated>
   <id>http://mjason.github.com/</id>
   <author>
     <name><![CDATA[MJ（天涯望帆）]]></name>
@@ -12,6 +12,69 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[golang 部署小技巧]]></title>
+    <link href="http://mjason.github.com/blog/2013/02/04/golang-bu-shu-xiao-ji-qiao/"/>
+    <updated>2013-02-04T19:51:00+08:00</updated>
+    <id>http://mjason.github.com/blog/2013/02/04/golang-bu-shu-xiao-ji-qiao</id>
+    <content type="html"><![CDATA[<p>golang的部署是很简单的事情，记录我这几天用到的部署技巧</p>
+
+<p>如果你是第一次进行交叉编译， 那么执行下面的操作</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span><span class="nb">cd</span> /usr/local/go/src
+</span><span class='line'><span class="nv">$ CGO_ENABLED</span><span class="o">=</span>0 <span class="nv">GOOS</span><span class="o">=</span>linux <span class="nv">GOARCH</span><span class="o">=</span>amd64 ./make.bash
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>然后运行</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">CGO_ENABLED</span><span class="o">=</span>0 <span class="nv">GOOS</span><span class="o">=</span>linux <span class="nv">GOARCH</span><span class="o">=</span>amd64 go build xxx.go
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>之后把编译好的文件发到服务器就好了</p>
+
+<p>下面配置upstart把项目启动
+sudo vim /etc/init/xxx.conf</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>description     <span class="s2">&quot;xxx&quot;</span>
+</span><span class='line'>author          <span class="s2">&quot;mjason&quot;</span>
+</span><span class='line'>
+</span><span class='line'>start on <span class="o">(</span>net-device-up
+</span><span class='line'>          and <span class="nb">local</span>-filesystems
+</span><span class='line'>          and runlevel <span class="o">[</span>2345<span class="o">])</span>
+</span><span class='line'>
+</span><span class='line'>stop on runlevel <span class="o">[</span>016<span class="o">]</span>
+</span><span class='line'>
+</span><span class='line'>respawn
+</span><span class='line'>
+</span><span class='line'><span class="nb">exec</span> /path/file
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>最后使用sudo service xxx start</p>
+
+<p>大功告成</p>
+
+<p>然后用server</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[ios学习笔记1--cocoapods]]></title>
