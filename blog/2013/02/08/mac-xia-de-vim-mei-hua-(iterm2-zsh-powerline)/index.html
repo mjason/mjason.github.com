@@ -5,18 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>rails_admin的权限控制 - 天涯望帆</title>
+  <title>mac 下的vim 美化（iterm2 zsh Powerline） - 天涯望帆</title>
   <meta name="author" content="MJ（天涯望帆）">
 
   
-  <meta name="description" content="rails_admin的权限控制中心 先在rails_admin的配置文件写入 1
-2
-3
-RailsAdmin.config do |config| config.authorize_with :cancan
-end 之后使用rails 生成器生成cancan的控制文件,编辑文件 1
-2
-3
-4 &hellip;">
+  <meta name="description" content="因为近期一直在写前端，在自己喜欢的emacs下写比较麻烦，所以配置一些vim来写前端 1. 安装oh-my-zsh(这个强大的东西作为一个ruby开发者怎么可以没有) 1
+curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -25,7 +19,7 @@ end 之后使用rails 生成器生成cancan的控制文件,编辑文件 1
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://mjason.github.com/blog/2013/01/14/rails-adminde-quan-xian-kong-zhi/">
+  <link rel="canonical" href="http://mjason.github.com/blog/2013/02/08/mac-xia-de-vim-mei-hua-%28iterm2-zsh-powerline%29/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -74,7 +68,7 @@ end 之后使用rails 生成器生成cancan的控制文件,编辑文件 1
   
   <header>
     
-      <h1 class="entry-title">Rails_admin的权限控制</h1>
+      <h1 class="entry-title">Mac 下的vim 美化（iterm2 Zsh Powerline）</h1>
     
     
       <p class="meta">
@@ -90,7 +84,7 @@ end 之后使用rails 生成器生成cancan的控制文件,编辑文件 1
   
 
 
-<time datetime="2013-01-14T14:32:00+08:00" pubdate data-updated="true">Jan 14<span>th</span>, 2013</time>
+<time datetime="2013-02-08T19:29:00+08:00" pubdate data-updated="true">Feb 8<span>th</span>, 2013</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -99,57 +93,63 @@ end 之后使用rails 生成器生成cancan的控制文件,编辑文件 1
   </header>
 
 
-<div class="entry-content"><p>rails_admin的权限控制中心</p>
+<div class="entry-content"><p>因为近期一直在写前端，在自己喜欢的emacs下写比较麻烦，所以配置一些vim来写前端</p>
 
-<p>先在rails_admin的配置文件写入</p>
+<h3>1. 安装oh-my-zsh(这个强大的东西作为一个ruby开发者怎么可以没有)</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>note: 以后需要添加或者修改环境变量的时候记得要在~/.zshrc 里面做</p>
+
+<h3>2. 配置好看的主题和字体</h3>
+
+<ol>
+<li>下载并安装需要用到的字体，下载地址如下
+https://gist.github.com/qrush/1595572/raw/417a3fa36e35ca91d6d23ac961071094c26e5fad/Menlo-Powerline.otf</li>
+<li>在iterm2里面配置好字体preferences > profiles > text > Non-ASCll font 改为刚刚安装上去的字体</li>
+<li>配置正确的显示色彩 preferences > profiles > Terminal
+将Report Terminal Type: 选择为xterm-256color <br>
+并且勾上Set locale variables automatically</li>
+</ol>
+
+
+<h3>3. 配置vim</h3>
+
+<ol>
+<li>安装插件pathogen（用来管理vim的插件的）</li>
+</ol>
+
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="no">RailsAdmin</span><span class="o">.</span><span class="n">config</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
-</span><span class='line'>  <span class="n">config</span><span class="o">.</span><span class="n">authorize_with</span> <span class="ss">:cancan</span>
-</span><span class='line'><span class="k">end</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>mkdir -p ~/.vim/autoload ~/.vim/bundle; <span class="se">\</span>
+</span><span class='line'>curl -Sso ~/.vim/autoload/pathogen.vim <span class="se">\</span>
+</span><span class='line'>    https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>之后使用rails 生成器生成cancan的控制文件,编辑文件</p>
+<p>配置插件<br/>
+打开vim ~/.vimrc<br/>
+将execute pathogen#infect()添加加在第一行</p>
+
+<h3>4. 安装vim-powerline</h3>
+
+<p>这个插件必须安装，一个很好vim状态栏</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Ability</span>
-</span><span class='line'>  <span class="kp">include</span> <span class="ss">CanCan</span><span class="p">:</span><span class="ss">:Ability</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
-</span><span class='line'>    <span class="n">user</span> <span class="o">||=</span> <span class="no">User</span><span class="o">.</span><span class="n">new</span>
-</span><span class='line'>    <span class="k">if</span> <span class="n">user</span> <span class="o">&amp;&amp;</span> <span class="n">user</span><span class="o">.</span><span class="n">is_superadmin?</span>
-</span><span class='line'>      <span class="n">can</span> <span class="ss">:access</span><span class="p">,</span> <span class="ss">:rails_admin</span>   <span class="c1">#打开路由</span>
-</span><span class='line'>      <span class="n">can</span> <span class="ss">:dashboard</span>   <span class="c1">#打开统计表</span>
-</span><span class='line'>      <span class="n">can</span> <span class="ss">:manage</span><span class="p">,</span> <span class="ss">:all</span> <span class="c1">#这个角色可以读取所有的表</span>
-</span><span class='line'>    <span class="k">elsif</span> <span class="n">user</span><span class="o">.</span><span class="n">is_admin?</span>
-</span><span class='line'>      <span class="n">can</span> <span class="ss">:access</span><span class="p">,</span> <span class="ss">:rails_admin</span>
-</span><span class='line'>      <span class="n">can</span> <span class="ss">:dashboard</span>
-</span><span class='line'>      <span class="n">can</span> <span class="ss">:manage</span><span class="p">,</span> <span class="o">[</span><span class="no">Person</span><span class="o">]</span> <span class="c1"># 这个用户只能管理这个模型</span>
-</span><span class='line'>    <span class="k">end</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">cd</span> ~/.vim/bundle
+</span><span class='line'>git clone https://github.com/Lokaltog/vim-powerline.git
 </span></code></pre></td></tr></table></div></figure>
 
 
+<h3>5.打开状态栏</h3>
 
+<p>将set laststatus=2 添加到 ~/.vimrc 里面</p>
 </div>
 
 
@@ -172,12 +172,12 @@ end 之后使用rails 生成器生成cancan的控制文件,编辑文件 1
   
 
 
-<time datetime="2013-01-14T14:32:00+08:00" pubdate data-updated="true">Jan 14<span>th</span>, 2013</time>
+<time datetime="2013-02-08T19:29:00+08:00" pubdate data-updated="true">Feb 8<span>th</span>, 2013</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/cancan/'>cancan</a>, <a class='category' href='/blog/categories/rails-admin/'>rails_admin</a>, <a class='category' href='/blog/categories/ruby/'>ruby</a>
+    <a class='category' href='/blog/categories/vim/'>vim</a>
   
 </span>
 
@@ -193,10 +193,8 @@ end 之后使用rails 生成器生成cancan的控制文件,编辑文件 1
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2013/01/08/jian-dan-de-railsbu-shu/" title="Previous Post: 简单的rails部署">&laquo; 简单的rails部署</a>
+        <a class="basic-alignment left" href="/blog/2013/02/04/golang-bu-shu-xiao-ji-qiao/" title="Previous Post: golang 部署小技巧">&laquo; golang 部署小技巧</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2013/01/29/golangjie-xi-wang-ye-ru-men/" title="Next Post: golang解析网页入门">golang解析网页入门 &raquo;</a>
       
     </p>
   </footer>
@@ -263,8 +261,8 @@ end 之后使用rails 生成器生成cancan的控制文件,编辑文件 1
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://mjason.github.com/blog/2013/01/14/rails-adminde-quan-xian-kong-zhi/';
-        var disqus_url = 'http://mjason.github.com/blog/2013/01/14/rails-adminde-quan-xian-kong-zhi/';
+        var disqus_identifier = 'http://mjason.github.com/blog/2013/02/08/mac-xia-de-vim-mei-hua-%28iterm2-zsh-powerline%29/';
+        var disqus_url = 'http://mjason.github.com/blog/2013/02/08/mac-xia-de-vim-mei-hua-%28iterm2-zsh-powerline%29/';
         var disqus_script = 'embed.js';
       
     (function () {

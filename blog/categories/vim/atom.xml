@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: vim | 天涯望帆]]></title>
+  <link href="http://mjason.github.com/blog/categories/vim/atom.xml" rel="self"/>
+  <link href="http://mjason.github.com/"/>
+  <updated>2013-02-08T19:52:51+08:00</updated>
+  <id>http://mjason.github.com/</id>
+  <author>
+    <name><![CDATA[MJ（天涯望帆）]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[mac 下的vim 美化（iterm2 zsh Powerline）]]></title>
+    <link href="http://mjason.github.com/blog/2013/02/08/mac-xia-de-vim-mei-hua-%28iterm2-zsh-powerline%29/"/>
+    <updated>2013-02-08T19:29:00+08:00</updated>
+    <id>http://mjason.github.com/blog/2013/02/08/mac-xia-de-vim-mei-hua-(iterm2-zsh-powerline)</id>
+    <content type="html"><![CDATA[<p>因为近期一直在写前端，在自己喜欢的emacs下写比较麻烦，所以配置一些vim来写前端</p>
+
+<h3>1. 安装oh-my-zsh(这个强大的东西作为一个ruby开发者怎么可以没有)</h3>
+
+<p><code>bash
+curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
+</code></p>
+
+<p>note: 以后需要添加或者修改环境变量的时候记得要在~/.zshrc 里面做</p>
+
+<h3>2. 配置好看的主题和字体</h3>
+
+<ol>
+<li>下载并安装需要用到的字体，下载地址如下
+https://gist.github.com/qrush/1595572/raw/417a3fa36e35ca91d6d23ac961071094c26e5fad/Menlo-Powerline.otf</li>
+<li>在iterm2里面配置好字体preferences > profiles > text > Non-ASCll font 改为刚刚安装上去的字体</li>
+<li>配置正确的显示色彩 preferences > profiles > Terminal
+将Report Terminal Type: 选择为xterm-256color <br>
+并且勾上Set locale variables automatically</li>
+</ol>
+
+
+<h3>3. 配置vim</h3>
+
+<ol>
+<li>安装插件pathogen（用来管理vim的插件的）<br/>
+<code>
+mkdir -p ~/.vim/autoload ~/.vim/bundle; \
+curl -Sso ~/.vim/autoload/pathogen.vim \
+ https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim
+</code>
+配置插件<br/>
+打开vim ~/.vimrc<br/>
+将execute pathogen#infect()添加加在第一行</li>
+</ol>
+
+
+<h3>4. 安装vim-powerline</h3>
+
+<p>这个插件必须安装，一个很好vim状态栏<br/>
+<code>
+cd ~/.vim/bundle
+git clone https://github.com/Lokaltog/vim-powerline.git
+</code></p>
+
+<h3>5.打开状态栏</h3>
+
+<p>将set laststatus=2 添加到 ~/.vimrc 里面</p>
+]]></content>
+  </entry>
+  
+</feed>
