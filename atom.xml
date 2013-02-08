@@ -4,7 +4,7 @@
   <title><![CDATA[天涯望帆]]></title>
   <link href="http://mjason.github.com/atom.xml" rel="self"/>
   <link href="http://mjason.github.com/"/>
-  <updated>2013-02-08T19:52:51+08:00</updated>
+  <updated>2013-02-08T19:57:14+08:00</updated>
   <id>http://mjason.github.com/</id>
   <author>
     <name><![CDATA[MJ（天涯望帆）]]></name>
@@ -27,7 +27,8 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>note: 以后需要添加或者修改环境变量的时候记得要在~/.zshrc 里面做</p>
+<p>并在.zshrc 里面添加或修改ZSH_THEME为ZSH_THEME=&#8221;agnoster&#8221;<br/>
+note: 以后需要添加或者修改环境变量的时候记得要在~/.zshrc 里面做</p>
 
 <h3>2. 配置好看的主题和字体</h3>
 
