@@ -9,7 +9,15 @@
   <meta name="author" content="MJ（天涯望帆）">
 
   
-  <meta name="description" content="当在些model的时候我们很多时候需要使用一些在hepler方法或者其他，model是使用不了这些的，一般是通过传变量来解决，可是这样的话，总是感觉怪怪的 这个时候可以使用线程来达到我们需要的东西 下面以在model使用devise的current_user为例说明如何使用 &hellip;">
+  <meta name="description" content="因为xcode4.6把系统的gcc版本改成了llvm，如果没有设置好的话，在安装gem和rubu的时候会出错
+下面是解决办法 1
+2
+3
+4
+brew update
+brew tap homebrew/dupes
+brew install apple-gcc42
+rvm get stable &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -64,6 +72,69 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/02/21/mac-os-10-dot-8-de-rvmzhu-yi-shi-xiang/">Mac Os 10.8 的rvm注意事项</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-02-21T15:23:00+08:00" pubdate data-updated="true">Feb 21<span>st</span>, 2013</time>
+        
+         | <a href="/blog/2013/02/21/mac-os-10-dot-8-de-rvmzhu-yi-shi-xiang/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>因为xcode4.6把系统的gcc版本改成了llvm，如果没有设置好的话，在安装gem和rubu的时候会出错
+下面是解决办法</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>brew update
+</span><span class='line'>brew tap homebrew/dupes
+</span><span class='line'>brew install apple-gcc42
+</span><span class='line'>rvm get stable</span></code></pre></td></tr></table></div></figure>
+
+
+<p>edit ~/.zshrc</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>export CC=gcc-4.2</span></code></pre></td></tr></table></div></figure>
+
+
+<p>install ruby</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rvm install ruby-1.9.3 --enable-shared --without-tk --without-tcl</span></code></pre></td></tr></table></div></figure>
+
+
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -895,6 +966,10 @@ eg: /home/deploy/test1/current/bin/unicorn_rails</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/02/21/mac-os-10-dot-8-de-rvmzhu-yi-shi-xiang/">mac os 10.8 的rvm注意事项</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/02/21/ru-he-zai-modelshi-yong-viewhe-controllerli-mian-de-fang-fa/">如何在model使用view和controller里面的方法</a>
       </li>
     
@@ -908,10 +983,6 @@ eg: /home/deploy/test1/current/bin/unicorn_rails</p>
     
       <li class="post">
         <a href="/blog/2013/01/31/iosxue-xi-bi-ji-1-cocoapods/">ios学习笔记1&#8211;cocoapods</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/01/29/gei-xue-xi-opa%5B%3F%5D-ge-jie-kou/">移动api设计注意事项</a>
       </li>
     
   </ul>

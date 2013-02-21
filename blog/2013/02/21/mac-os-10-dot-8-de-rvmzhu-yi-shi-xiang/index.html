@@ -5,11 +5,19 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Category: ios - 天涯望帆</title>
+  <title>mac os 10.8 的rvm注意事项 - 天涯望帆</title>
   <meta name="author" content="MJ（天涯望帆）">
 
   
-  <meta name="description" content="Category: ios">
+  <meta name="description" content="因为xcode4.6把系统的gcc版本改成了llvm，如果没有设置好的话，在安装gem和rubu的时候会出错
+下面是解决办法 1
+2
+3
+4
+brew update
+brew tap homebrew/dupes
+brew install apple-gcc42
+rvm get stable &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +26,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://mjason.github.comblog/categories/ios/">
+  <link rel="canonical" href="http://mjason.github.com/blog/2013/02/21/mac-os-10-dot-8-de-rvmzhu-yi-shi-xiang/">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -63,36 +71,116 @@
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Category: Ios</h1>
+    
+      <h1 class="entry-title">Mac Os 10.8 的rvm注意事项</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-02-21T15:23:00+08:00" pubdate data-updated="true">Feb 21<span>st</span>, 2013</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives" class="category">
 
 
+<div class="entry-content"><p>因为xcode4.6把系统的gcc版本改成了llvm，如果没有设置好的话，在安装gem和rubu的时候会出错
+下面是解决办法</p>
 
-  
-  <h2>2013</h2>
-
-<article>
-  
-<h1><a href="/blog/2013/01/31/iosxue-xi-bi-ji-1-cocoapods/">ios学习笔记1--cocoapods</a></h1>
-<time datetime="2013-01-31T19:07:00+08:00" pubdate><span class='month'>Jan</span> <span class='day'>31</span> <span class='year'>2013</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/ios/'>ios</a></span>
-</footer>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>brew update
+</span><span class='line'>brew tap homebrew/dupes
+</span><span class='line'>brew install apple-gcc42
+</span><span class='line'>rvm get stable</span></code></pre></td></tr></table></div></figure>
 
 
-</article>
+<p>edit ~/.zshrc</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>export CC=gcc-4.2</span></code></pre></td></tr></table></div></figure>
+
+
+<p>install ruby</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rvm install ruby-1.9.3 --enable-shared --without-tk --without-tcl</span></code></pre></td></tr></table></div></figure>
+
+
 
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">MJ（天涯望帆）</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-02-21T15:23:00+08:00" pubdate data-updated="true">Feb 21<span>st</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/osx/'>osx</a>, <a class='category' href='/blog/categories/rvm/'>rvm</a>, <a class='category' href='/blog/categories/xcode4-6/'>xcode4.6</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/02/21/ru-he-zai-modelshi-yong-viewhe-controllerli-mian-de-fang-fa/" title="Previous Post: 如何在model使用view和controller里面的方法">&laquo; 如何在model使用view和controller里面的方法</a>
+      
+      
+    </p>
+  </footer>
 </article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
 
@@ -148,7 +236,10 @@
       var disqus_shortname = 'tywf91';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://mjason.github.com/blog/2013/02/21/mac-os-10-dot-8-de-rvmzhu-yi-shi-xiang/';
+        var disqus_url = 'http://mjason.github.com/blog/2013/02/21/mac-os-10-dot-8-de-rvmzhu-yi-shi-xiang/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

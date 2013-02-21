@@ -4,7 +4,7 @@
   <title><![CDATA[天涯望帆]]></title>
   <link href="http://mjason.github.com/atom.xml" rel="self"/>
   <link href="http://mjason.github.com/"/>
-  <updated>2013-02-21T15:21:12+08:00</updated>
+  <updated>2013-02-21T15:26:56+08:00</updated>
   <id>http://mjason.github.com/</id>
   <author>
     <name><![CDATA[MJ（天涯望帆）]]></name>
@@ -12,6 +12,40 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[mac os 10.8 的rvm注意事项]]></title>
+    <link href="http://mjason.github.com/blog/2013/02/21/mac-os-10-dot-8-de-rvmzhu-yi-shi-xiang/"/>
+    <updated>2013-02-21T15:23:00+08:00</updated>
+    <id>http://mjason.github.com/blog/2013/02/21/mac-os-10-dot-8-de-rvmzhu-yi-shi-xiang</id>
+    <content type="html"><![CDATA[<p>因为xcode4.6把系统的gcc版本改成了llvm，如果没有设置好的话，在安装gem和rubu的时候会出错
+下面是解决办法</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>brew update
+</span><span class='line'>brew tap homebrew/dupes
+</span><span class='line'>brew install apple-gcc42
+</span><span class='line'>rvm get stable</span></code></pre></td></tr></table></div></figure>
+
+
+<p>edit ~/.zshrc</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>export CC=gcc-4.2</span></code></pre></td></tr></table></div></figure>
+
+
+<p>install ruby</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rvm install ruby-1.9.3 --enable-shared --without-tk --without-tcl</span></code></pre></td></tr></table></div></figure>
+
+
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[如何在model使用view和controller里面的方法]]></title>

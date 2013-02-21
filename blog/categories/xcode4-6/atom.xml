@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: xcode4.6 | 天涯望帆]]></title>
+  <link href="http://mjason.github.com/blog/categories/xcode4-6/atom.xml" rel="self"/>
+  <link href="http://mjason.github.com/"/>
+  <updated>2013-02-21T15:26:56+08:00</updated>
+  <id>http://mjason.github.com/</id>
+  <author>
+    <name><![CDATA[MJ（天涯望帆）]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[mac os 10.8 的rvm注意事项]]></title>
+    <link href="http://mjason.github.com/blog/2013/02/21/mac-os-10-dot-8-de-rvmzhu-yi-shi-xiang/"/>
+    <updated>2013-02-21T15:23:00+08:00</updated>
+    <id>http://mjason.github.com/blog/2013/02/21/mac-os-10-dot-8-de-rvmzhu-yi-shi-xiang</id>
+    <content type="html"><![CDATA[<p>因为xcode4.6把系统的gcc版本改成了llvm，如果没有设置好的话，在安装gem和rubu的时候会出错
+下面是解决办法
+<code>
+brew update
+brew tap homebrew/dupes
+brew install apple-gcc42
+rvm get stable
+</code></p>
+
+<p>edit ~/.zshrc</p>
+
+<p><code>
+export CC=gcc-4.2
+</code></p>
+
+<p>install ruby
+<code>
+rvm install ruby-1.9.3 --enable-shared --without-tk --without-tcl
+</code></p>
+]]></content>
+  </entry>
+  
+</feed>
