@@ -2,44 +2,50 @@
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
         <loc>http://mjason.github.com/blog/2013/01/08/jian-dan-de-railsbu-shu/</loc>
-        <lastmod>2013-01-08T23:57:39+08:00</lastmod>
+        <lastmod>2013-02-15T20:30:58+08:00</lastmod>
     </url>
     <url>
         <loc>http://mjason.github.com/blog/2013/01/14/rails-adminde-quan-xian-kong-zhi/</loc>
-        <lastmod>2013-01-14T14:37:34+08:00</lastmod>
+        <lastmod>2013-02-15T20:30:58+08:00</lastmod>
     </url>
     <url>
         <loc>http://mjason.github.com/blog/2013/01/29/golangjie-xi-wang-ye-ru-men/</loc>
-        <lastmod>2013-01-29T09:26:00+08:00</lastmod>
+        <lastmod>2013-02-15T20:30:58+08:00</lastmod>
     </url>
     <url>
         <loc>http://mjason.github.com/blog/2013/01/29/gei-xue-xi-opa%5B%3F%5D-ge-jie-kou/</loc>
-        <lastmod>2013-01-31T17:31:34+08:00</lastmod>
+        <lastmod>2013-02-15T20:30:58+08:00</lastmod>
     </url>
     <url>
         <loc>http://mjason.github.com/blog/2013/01/31/iosxue-xi-bi-ji-1-cocoapods/</loc>
-        <lastmod>2013-01-31T19:29:28+08:00</lastmod>
+        <lastmod>2013-02-15T20:30:58+08:00</lastmod>
     </url>
     <url>
         <loc>http://mjason.github.com/blog/2013/02/04/golang-bu-shu-xiao-ji-qiao/</loc>
-        <lastmod>2013-02-04T19:58:13+08:00</lastmod>
+        <lastmod>2013-02-15T20:30:58+08:00</lastmod>
     </url>
     <url>
         <loc>
             http://mjason.github.com/blog/2013/02/08/mac-xia-de-vim-mei-hua-%28iterm2-zsh-powerline%29/
         </loc>
-        <lastmod>2013-02-08T19:56:57+08:00</lastmod>
+        <lastmod>2013-02-15T20:30:58+08:00</lastmod>
+    </url>
+    <url>
+        <loc>
+            http://mjason.github.com/blog/2013/02/21/ru-he-zai-modelshi-yong-viewhe-controllerli-mian-de-fang-fa/
+        </loc>
+        <lastmod>2013-02-21T12:44:20+08:00</lastmod>
     </url>
     <url>
         <loc>http://mjason.github.com/blog/archives/</loc>
-        <lastmod>2013-02-08T19:56:57+08:00</lastmod>
+        <lastmod>2013-02-21T12:44:20+08:00</lastmod>
     </url>
     <url>
         <loc>http://mjason.github.com/</loc>
-        <lastmod>2013-02-08T19:56:57+08:00</lastmod>
+        <lastmod>2013-02-21T12:44:20+08:00</lastmod>
     </url>
     <url>
         <loc>http://mjason.github.com/robots.txt</loc>
-        <lastmod>2013-01-08T22:20:20+08:00</lastmod>
+        <lastmod>2013-02-15T20:30:58+08:00</lastmod>
     </url>
 </urlset>

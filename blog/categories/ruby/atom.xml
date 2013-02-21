@@ -4,7 +4,7 @@
   <title><![CDATA[Category: ruby | 天涯望帆]]></title>
   <link href="http://mjason.github.com/blog/categories/ruby/atom.xml" rel="self"/>
   <link href="http://mjason.github.com/"/>
-  <updated>2013-02-08T19:57:14+08:00</updated>
+  <updated>2013-02-21T15:21:12+08:00</updated>
   <id>http://mjason.github.com/</id>
   <author>
     <name><![CDATA[MJ（天涯望帆）]]></name>
@@ -12,6 +12,48 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[如何在model使用view和controller里面的方法]]></title>
+    <link href="http://mjason.github.com/blog/2013/02/21/ru-he-zai-modelshi-yong-viewhe-controllerli-mian-de-fang-fa/"/>
+    <updated>2013-02-21T12:02:00+08:00</updated>
+    <id>http://mjason.github.com/blog/2013/02/21/ru-he-zai-modelshi-yong-viewhe-controllerli-mian-de-fang-fa</id>
+    <content type="html"><![CDATA[<p>当在些model的时候我们很多时候需要使用一些在hepler方法或者其他，model是使用不了这些的，一般是通过传变量来解决，可是这样的话，总是感觉怪怪的</p>
+
+<p>这个时候可以使用线程来达到我们需要的东西</p>
+
+<p>下面以在model使用devise的current_user为例说明如何使用</p>
+
+<p>在ApplicationController里面写入一个方法</p>
+
+<p>```ruby
+before_filter :set_request_environment</p>
+
+<p>  private
+  def set_request_environment</p>
+
+<pre><code>Thread.current[:current_user] = current_user if current_user
+</code></pre>
+
+<p>  end
+```</p>
+
+<p>在model里面就可以访问到这个线程的内容</p>
+
+<p>```ruby
+def is_teacher?</p>
+
+<pre><code>if Thread.current[:current_user] == teacher
+  return true
+else
+  return false
+end
+</code></pre>
+
+<p>end
+```</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[rails_admin的权限控制]]></title>

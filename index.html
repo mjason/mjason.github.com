@@ -9,8 +9,7 @@
   <meta name="author" content="MJ（天涯望帆）">
 
   
-  <meta name="description" content="因为近期一直在写前端，在自己喜欢的emacs下写比较麻烦，所以配置一些vim来写前端 1. 安装oh-my-zsh(这个强大的东西作为一个ruby开发者怎么可以没有) 1
-curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/ &hellip;">
+  <meta name="description" content="当在些model的时候我们很多时候需要使用一些在hepler方法或者其他，model是使用不了这些的，一般是通过传变量来解决，可是这样的话，总是感觉怪怪的 这个时候可以使用线程来达到我们需要的东西 下面以在model使用devise的current_user为例说明如何使用 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -65,6 +64,86 @@ curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/ &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/02/21/ru-he-zai-modelshi-yong-viewhe-controllerli-mian-de-fang-fa/">如何在model使用view和controller里面的方法</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-02-21T12:02:00+08:00" pubdate data-updated="true">Feb 21<span>st</span>, 2013</time>
+        
+         | <a href="/blog/2013/02/21/ru-he-zai-modelshi-yong-viewhe-controllerli-mian-de-fang-fa/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>当在些model的时候我们很多时候需要使用一些在hepler方法或者其他，model是使用不了这些的，一般是通过传变量来解决，可是这样的话，总是感觉怪怪的</p>
+
+<p>这个时候可以使用线程来达到我们需要的东西</p>
+
+<p>下面以在model使用devise的current_user为例说明如何使用</p>
+
+<p>在ApplicationController里面写入一个方法</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">before_filter</span> <span class="ss">:set_request_environment</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kp">private</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">set_request_environment</span>
+</span><span class='line'>    <span class="no">Thread</span><span class="o">.</span><span class="n">current</span><span class="o">[</span><span class="ss">:current_user</span><span class="o">]</span> <span class="o">=</span> <span class="n">current_user</span> <span class="k">if</span> <span class="n">current_user</span>
+</span><span class='line'>  <span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在model里面就可以访问到这个线程的内容</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">is_teacher?</span>
+</span><span class='line'>    <span class="k">if</span> <span class="no">Thread</span><span class="o">.</span><span class="n">current</span><span class="o">[</span><span class="ss">:current_user</span><span class="o">]</span> <span class="o">==</span> <span class="n">teacher</span>
+</span><span class='line'>      <span class="k">return</span> <span class="kp">true</span>
+</span><span class='line'>    <span class="k">else</span>
+</span><span class='line'>      <span class="k">return</span> <span class="kp">false</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -816,6 +895,10 @@ eg: /home/deploy/test1/current/bin/unicorn_rails</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/02/21/ru-he-zai-modelshi-yong-viewhe-controllerli-mian-de-fang-fa/">如何在model使用view和controller里面的方法</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/02/08/mac-xia-de-vim-mei-hua-%28iterm2-zsh-powerline%29/">mac 下的vim 美化（iterm2 zsh Powerline）</a>
       </li>
     
@@ -829,10 +912,6 @@ eg: /home/deploy/test1/current/bin/unicorn_rails</p>
     
       <li class="post">
         <a href="/blog/2013/01/29/gei-xue-xi-opa%5B%3F%5D-ge-jie-kou/">移动api设计注意事项</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/01/29/golangjie-xi-wang-ye-ru-men/">golang解析网页入门</a>
       </li>
     
   </ul>

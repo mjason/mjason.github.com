@@ -4,7 +4,7 @@
   <title><![CDATA[天涯望帆]]></title>
   <link href="http://mjason.github.com/atom.xml" rel="self"/>
   <link href="http://mjason.github.com/"/>
-  <updated>2013-02-08T19:57:14+08:00</updated>
+  <updated>2013-02-21T15:21:12+08:00</updated>
   <id>http://mjason.github.com/</id>
   <author>
     <name><![CDATA[MJ（天涯望帆）]]></name>
@@ -12,6 +12,57 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[如何在model使用view和controller里面的方法]]></title>
+    <link href="http://mjason.github.com/blog/2013/02/21/ru-he-zai-modelshi-yong-viewhe-controllerli-mian-de-fang-fa/"/>
+    <updated>2013-02-21T12:02:00+08:00</updated>
+    <id>http://mjason.github.com/blog/2013/02/21/ru-he-zai-modelshi-yong-viewhe-controllerli-mian-de-fang-fa</id>
+    <content type="html"><![CDATA[<p>当在些model的时候我们很多时候需要使用一些在hepler方法或者其他，model是使用不了这些的，一般是通过传变量来解决，可是这样的话，总是感觉怪怪的</p>
+
+<p>这个时候可以使用线程来达到我们需要的东西</p>
+
+<p>下面以在model使用devise的current_user为例说明如何使用</p>
+
+<p>在ApplicationController里面写入一个方法</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">before_filter</span> <span class="ss">:set_request_environment</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kp">private</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">set_request_environment</span>
+</span><span class='line'>    <span class="no">Thread</span><span class="o">.</span><span class="n">current</span><span class="o">[</span><span class="ss">:current_user</span><span class="o">]</span> <span class="o">=</span> <span class="n">current_user</span> <span class="k">if</span> <span class="n">current_user</span>
+</span><span class='line'>  <span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在model里面就可以访问到这个线程的内容</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">is_teacher?</span>
+</span><span class='line'>    <span class="k">if</span> <span class="no">Thread</span><span class="o">.</span><span class="n">current</span><span class="o">[</span><span class="ss">:current_user</span><span class="o">]</span> <span class="o">==</span> <span class="n">teacher</span>
+</span><span class='line'>      <span class="k">return</span> <span class="kp">true</span>
+</span><span class='line'>    <span class="k">else</span>
+</span><span class='line'>      <span class="k">return</span> <span class="kp">false</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[mac 下的vim 美化（iterm2 zsh Powerline）]]></title>
