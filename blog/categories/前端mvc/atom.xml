@@ -4,7 +4,7 @@
   <title><![CDATA[Category: 前端mvc | 天涯望帆]]></title>
   <link href="http://mjason.github.com/blog/categories/前端mvc/atom.xml" rel="self"/>
   <link href="http://mjason.github.com/"/>
-  <updated>2013-02-25T00:07:36+08:00</updated>
+  <updated>2013-02-25T00:22:30+08:00</updated>
   <id>http://mjason.github.com/</id>
   <author>
     <name><![CDATA[MJ（天涯望帆）]]></name>
@@ -353,7 +353,7 @@ class BatmatBlog.PostsController extends Batman.Controller</p>
 
 <p>新建app/assets/javascipts/views/posts/new.html.erb
 <code>html
-form class="new-post" accept-charset="utf-8" data-event-submit="create" data-formfor-post="post"&gt;
+&lt;form class="new-post" accept-charset="utf-8" data-event-submit="create" data-formfor-post="post"&gt;
   &lt;input type="text" data-bind="post.title" name="post[title]"&gt;
   &lt;input type="text" data-bind="post.content" name="post[content]"&gt;
   &lt;input type="file" data-bind="post.image" name="post[image]"&gt;
@@ -379,6 +379,48 @@ new: (params) -></p>
 </code></pre>
 
 <p>```</p>
+
+<p>现在我们写index的view<br/>
+app/assets/javascipts/posts/index.html.erb
+```html</p>
+
+<div data-foreach-post="posts">
+  <div>
+    <p data-bind="post.title"></p>
+    <a data-route="routes.posts[post]">show</a>
+  </div>
+</div>
+
+
+<p><a data-route="routes.posts.new">new</a>
+```</p>
+
+<p>好了想在写show的view<br/>
+app/assets/javascipts/posts/show.html.erb
+```html</p>
+
+<p data-bind="post.title"></p>
+
+
+<p data-bind="post.content"></p>
+
+
+<p><img data-bind-src="post.image.url" alt="">
+<a data-route="routes.posts">back</a>
+```</p>
+
+<p>补写controller
+app/assets/javascipt/controller/posts_controller.js.coffee
+```coffeescript
+show: (params) ->
+  @set "post", BatmatBlog.Post.find params.id, (err, post) =></p>
+
+<pre><code>throw err if err
+</code></pre>
+
+<p>```</p>
+
+<p>现在打开浏览器看看，我们的基本样子就出来了，下一篇将介绍用户登陆，和美化，这篇就到这里</p>
 ]]></content>
   </entry>
   
