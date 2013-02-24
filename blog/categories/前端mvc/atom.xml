@@ -4,7 +4,7 @@
   <title><![CDATA[Category: 前端mvc | 天涯望帆]]></title>
   <link href="http://mjason.github.com/blog/categories/前端mvc/atom.xml" rel="self"/>
   <link href="http://mjason.github.com/"/>
-  <updated>2013-02-24T21:17:20+08:00</updated>
+  <updated>2013-02-24T23:11:29+08:00</updated>
   <id>http://mjason.github.com/</id>
   <author>
     <name><![CDATA[MJ（天涯望帆）]]></name>
@@ -59,7 +59,7 @@ rails g batman:install
 1. 文章要有标题，内容和图片
 2. 无刷新，整站使用ajax</p>
 
-<h2>go</h2>
+<h2>ruby</h2>
 
 <p>我们需要使用使用基础的命令来生成一个项目
 <code>
@@ -124,6 +124,145 @@ rails g batman:install</p>
 <p>@import "bootstrap";</p>
 
 <p>```</p>
+
+<p>在application.js添加以下内容
+```javascipt
+//= require jquery
+//= require jquery_ujs
+//= require bootstrap</p>
+
+<p>// Batman.js and its adapters
+//= require batman/es5-shim
+//= require batman/batman
+//= require batman/batman.jquery
+//= require batman/batman.rails</p>
+
+<p>//= require batmat_blog</p>
+
+<p>//= require_tree ./models
+//= require_tree ./controllers
+//= require_tree ./helpers</p>
+
+<p>//= require_tree .
+// Run the Batman app
+$(document).ready(function(){
+  BatmatBlog.run();
+});
+```</p>
+
+<p>因为我们需要上传文件，所以我们需要使用carrierwave来做
+<code>
+rails generate uploader image
+</code></p>
+
+<p>修改model<br/>
+app/models/post.rb
+<code>ruby
+class Post &lt; ActiveRecord::Base
+  attr_accessible :content, :image, :title
+  mount_uploader :image, ImageUploader
+end
+</code></p>
+
+<p>好了接下来我们需要进入batman，batman也为了我们准备了很多很有用生成器
+<code>
+Batman:
+  batman:controller
+  batman:helper
+  batman:install
+  batman:model
+  batman:scaffold
+</code>
+我们使用batman:scaffold来创建我们需要的东西，也方便我们熟悉batman的写法
+<code>
+rails g batman:scaffold post
+</code></p>
+
+<h2>batman</h2>
+
+<p>打开app/assets/javascipts/post.js
+```coffee
+class BatmatBlog.Post extends Batman.Model
+  @storageKey: 'posts'
+  @persist Batman.RailsStorage</p>
+
+<p>  @encode "title", "content", "image"
+```</p>
+
+<p>下面解释一下上面几个东西，因为我的英语翻译确实比较烂，所以还是直接引用英文了</p>
+
+<p><code>
+@storageKey is a class level option which gives the storage adapters something to interpolate into their specific key generation schemes. In the case of LocalStorage or SessionStorage adapters, the storageKey defines what namespace to store this record under in the localStorage or sessionStorage host objects, and with the case of the RestStorage family of adapters, the storageKey assists in URL generation. See the documentation for the storage adapter of your choice for more information.
+The default storageKey is null.
+</code></p>
+
+<p><code>
+@persist is how a Model subclass is told to persist itself by means of a StorageAdapter. @persist accepts either a StorageAdapter class or instance and will return either the instantiated class or the instance passed to it for further modification.
+</code></p>
+
+<p><code>
+@encode specifies a list of keys a model should expect from and send back to a storage adapter, and any transforms to apply to those attributes as they enter and exit the world of Batman in the optional encoderObject.
+The encoderObject should have an encode and/or a decode key which point to functions. The functions accept the "raw" data (the Batman land value in the case of encode, and the backend land value in the case of decode), and should return the data suitable for the other side of the link. The functions should have the following signatures
+</code></p>
+
+<p>接下来我们进入controller</p>
+
+<p>我们可以看到batman为我们生成了基本的index show create update</p>
+
+<p>不过我们因为需要有一个get action来生成new和edit
+所以我们加上这两个方法，代码就如下面这个样子:
+```coffee
+class BatmatBlog.PostsController extends Batman.Controller
+  index: (params) -></p>
+
+<p>  show: (params) -></p>
+
+<p>  new: (params) -></p>
+
+<p>  create: (params) -></p>
+
+<p>  edit: (params) -></p>
+
+<p>  update: (params) -></p>
+
+<p>  destroy: (params) ->
+```
+现在先放着，不写实现先，我们需要写路由了
+这个时候，可以说说路由在那里实现了，我们看以我们项目名称命名的coffee文件
+app/assets/javascipts/batmat_blog.js.coffee</p>
+
+<p>```coffee
+window.BatmatBlog = class BatmatBlog extends Batman.App</p>
+
+<p>  # @root 'controller#all'
+  # @route '/controller/:id', 'controller#show', resource: 'model', action: 'show'</p>
+
+<p>  @on 'run', -></p>
+
+<pre><code>console?.log "Running ...."
+</code></pre>
+
+<p>  @on 'ready', -></p>
+
+<pre><code>console?.log "BatmatBlog ready for use."
+</code></pre>
+
+<p>  @flash: Batman()
+  @flash.accessor</p>
+
+<pre><code>get: (key) -&gt; @[key]
+set: (key, value) -&gt;
+  @[key] = value
+  if value isnt ''
+    setTimeout =&gt;
+      @set(key, '')
+    , 2000
+  value
+</code></pre>
+
+<p>  @flashSuccess: (message) -> @set 'flash.success', message
+  @flashError: (message) ->  @set 'flash.error', message
+```</p>
 ]]></content>
   </entry>
   
