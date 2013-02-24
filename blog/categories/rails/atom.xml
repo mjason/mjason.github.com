@@ -4,7 +4,7 @@
   <title><![CDATA[Category: rails | 天涯望帆]]></title>
   <link href="http://mjason.github.com/blog/categories/rails/atom.xml" rel="self"/>
   <link href="http://mjason.github.com/"/>
-  <updated>2013-02-24T23:18:07+08:00</updated>
+  <updated>2013-02-25T00:05:53+08:00</updated>
   <id>http://mjason.github.com/</id>
   <author>
     <name><![CDATA[MJ（天涯望帆）]]></name>
@@ -263,6 +263,122 @@ set: (key, value) -&gt;
 <p>  @flashSuccess: (message) -> @set 'flash.success', message
   @flashError: (message) ->  @set 'flash.error', message
 ```</p>
+
+<p>```coffeescript
+window.BatmatBlog = class BatmatBlog extends Batman.App</p>
+
+<p>  # @root 'controller#all'
+  # @route '/controller/:id', 'controller#show', resource: 'model', action: 'show'
+  @root 'posts#index'
+  @resources 'posts'</p>
+
+<p>  Batman.ViewStore.prefix = 'assets/views' # 设置view目录</p>
+
+<p>  @on 'run', -></p>
+
+<pre><code>console?.log "Running ...."
+</code></pre>
+
+<p>  @on 'ready', -></p>
+
+<pre><code>console?.log "BatmatBlog ready for use."
+</code></pre>
+
+<p>  @flash: Batman()
+  @flash.accessor</p>
+
+<pre><code>get: (key) -&gt; @[key]
+set: (key, value) -&gt;
+  @[key] = value
+  if value isnt ''
+    setTimeout =&gt;
+      @set(key, '')
+    , 2000
+  value
+</code></pre>
+
+<p>  @flashSuccess: (message) -> @set 'flash.success', message
+  @flashError: (message) ->  @set 'flash.error', message
+```</p>
+
+<p>好了我们来写view, 首先修改appliction.html.erb
+```html
+&lt;!DOCTYPE html>
+<html>
+<head>
+  <title>BatmatBlog</title>
+  &lt;%= stylesheet_link_tag    "application", :media => "all" %>
+  &lt;%= javascript_include_tag "application" %>
+  &lt;%= csrf_meta_tags %>
+</head>
+<body></p>
+
+<div data-yield="main"></div>
+
+
+<p></body>
+</html>
+```</p>
+
+<p>这时打开主页，并打开console，看到一个错误
+Uncaught DevelopmentError: Please define <code>routingKey</code> on the prototype of PostsController in order for your controller to be minification safe. batman.js:750</p>
+
+<p>这是因为rails js会压缩，如果你压缩js的话，这个无需介意，不过我们的js需要压缩，所以我们必须在controller里面写入这一行代码,代码如下:
+```coffeescipt
+class BatmatBlog.PostsController extends Batman.Controller</p>
+
+<p>  routingKey: "posts"</p>
+
+<p>  index: (params) -></p>
+
+<pre><code>BatmatBlog.Post.load (err, posts) =&gt;
+  @set 'posts', posts
+</code></pre>
+
+<p>  show: (params) -></p>
+
+<p>  new: (params) -></p>
+
+<p>  create: (params) -></p>
+
+<p>  edit: (params) -></p>
+
+<p>  update: (params) -></p>
+
+<p>  destroy: (params) -></p>
+
+<p>```</p>
+
+<p>现在来写new的view和controller action</p>
+
+<p>新建app/assets/javascipts/views/posts/new.html.erb
+<code>html
+form class="new-post" accept-charset="utf-8" data-event-submit="create" data-formfor-post="post"&gt;
+  &lt;input type="text" data-bind="post.title" name="post[title]"&gt;
+  &lt;input type="text" data-bind="post.content" name="post[content]"&gt;
+  &lt;input type="file" data-bind="post.image" name="post[image]"&gt;
+  &lt;input type="submit" value="save"&gt;
+&lt;/form&gt;
+</code></p>
+
+<p>然后写new和create方法
+```coffeescipts
+new: (params) -></p>
+
+<pre><code>@set "post", new BatmatBlog.Post()
+</code></pre>
+
+<p>  create: (params) -></p>
+
+<pre><code>@get('post').save (err) =&gt;
+  if err
+    # 做一些错误处理
+    throw err
+  else
+    document.getElementsByName("post[image]")[0].value = "" # 因为图片上传之后，你再次新建的时候记录还是在的，所以我们要手动清楚掉
+</code></pre>
+
+<p>```</p>
 ]]></content>
   </entry>
   
