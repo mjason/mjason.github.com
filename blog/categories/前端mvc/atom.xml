@@ -4,7 +4,7 @@
   <title><![CDATA[Category: 前端mvc | 天涯望帆]]></title>
   <link href="http://mjason.github.com/blog/categories/前端mvc/atom.xml" rel="self"/>
   <link href="http://mjason.github.com/"/>
-  <updated>2013-02-25T00:06:31+08:00</updated>
+  <updated>2013-02-25T00:07:36+08:00</updated>
   <id>http://mjason.github.com/</id>
   <author>
     <name><![CDATA[MJ（天涯望帆）]]></name>
@@ -324,7 +324,7 @@ set: (key, value) -&gt;
 Uncaught DevelopmentError: Please define <code>routingKey</code> on the prototype of PostsController in order for your controller to be minification safe. batman.js:750</p>
 
 <p>这是因为rails js会压缩，如果你压缩js的话，这个无需介意，不过我们的js需要压缩，所以我们必须在controller里面写入这一行代码,代码如下:
-```coffeescipt
+```coffeescript
 class BatmatBlog.PostsController extends Batman.Controller</p>
 
 <p>  routingKey: "posts"</p>
@@ -362,7 +362,7 @@ form class="new-post" accept-charset="utf-8" data-event-submit="create" data-for
 </code></p>
 
 <p>然后写new和create方法
-```coffeescipt
+```coffeescript
 new: (params) -></p>
 
 <pre><code>@set "post", new BatmatBlog.Post()

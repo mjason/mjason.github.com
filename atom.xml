@@ -4,7 +4,7 @@
   <title><![CDATA[天涯望帆]]></title>
   <link href="http://mjason.github.com/atom.xml" rel="self"/>
   <link href="http://mjason.github.com/"/>
-  <updated>2013-02-24T23:18:07+08:00</updated>
+  <updated>2013-02-25T00:07:36+08:00</updated>
   <id>http://mjason.github.com/</id>
   <author>
     <name><![CDATA[MJ（天涯望帆）]]></name>
@@ -382,6 +382,190 @@ app/assets/javascipts/batmat_blog.js.coffee</p>
 </span><span class='line'>
 </span><span class='line'>  <span class="vi">@flashSuccess: </span><span class="nf">(message) -&gt;</span> <span class="nx">@set</span> <span class="s">&#39;flash.success&#39;</span><span class="p">,</span> <span class="nx">message</span>
 </span><span class='line'>  <span class="vi">@flashError: </span><span class="nf">(message) -&gt;</span>  <span class="nx">@set</span> <span class="s">&#39;flash.error&#39;</span><span class="p">,</span> <span class="nx">message</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nb">window</span><span class="p">.</span><span class="nv">BatmatBlog = </span><span class="k">class</span> <span class="nx">BatmatBlog</span> <span class="k">extends</span> <span class="nx">Batman</span><span class="p">.</span><span class="nx">App</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1"># @root &#39;controller#all&#39;</span>
+</span><span class='line'>  <span class="c1"># @route &#39;/controller/:id&#39;, &#39;controller#show&#39;, resource: &#39;model&#39;, action: &#39;show&#39;</span>
+</span><span class='line'>  <span class="nx">@root</span> <span class="s">&#39;posts#index&#39;</span>
+</span><span class='line'>  <span class="nx">@resources</span> <span class="s">&#39;posts&#39;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nv">Batman.ViewStore.prefix = </span><span class="s">&#39;assets/views&#39;</span> <span class="c1"># 设置view目录</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nx">@</span><span class="kc">on</span> <span class="s">&#39;run&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+</span><span class='line'>    <span class="nx">console</span><span class="o">?</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Running ....&quot;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nx">@</span><span class="kc">on</span> <span class="s">&#39;ready&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+</span><span class='line'>    <span class="nx">console</span><span class="o">?</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;BatmatBlog ready for use.&quot;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="vi">@flash: </span><span class="nx">Batman</span><span class="p">()</span>
+</span><span class='line'>  <span class="nx">@flash</span><span class="p">.</span><span class="nx">accessor</span>
+</span><span class='line'>    <span class="nv">get: </span><span class="nf">(key) -&gt;</span> <span class="nx">@</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span>
+</span><span class='line'>    <span class="nv">set: </span><span class="nf">(key, value) -&gt;</span>
+</span><span class='line'>      <span class="nx">@</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="nx">value</span>
+</span><span class='line'>      <span class="k">if</span> <span class="nx">value</span> <span class="o">isnt</span> <span class="s">&#39;&#39;</span>
+</span><span class='line'>        <span class="nx">setTimeout</span> <span class="o">=&gt;</span>
+</span><span class='line'>          <span class="nx">@set</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">)</span>
+</span><span class='line'>        <span class="p">,</span> <span class="mi">2000</span>
+</span><span class='line'>      <span class="nx">value</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="vi">@flashSuccess: </span><span class="nf">(message) -&gt;</span> <span class="nx">@set</span> <span class="s">&#39;flash.success&#39;</span><span class="p">,</span> <span class="nx">message</span>
+</span><span class='line'>  <span class="vi">@flashError: </span><span class="nf">(message) -&gt;</span>  <span class="nx">@set</span> <span class="s">&#39;flash.error&#39;</span><span class="p">,</span> <span class="nx">message</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>好了我们来写view, 首先修改appliction.html.erb</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="cp">&lt;!DOCTYPE html&gt;</span>
+</span><span class='line'><span class="nt">&lt;html&gt;</span>
+</span><span class='line'><span class="nt">&lt;head&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;title&gt;</span>BatmatBlog<span class="nt">&lt;/title&gt;</span>
+</span><span class='line'>  <span class="err">&lt;</span>%= stylesheet_link_tag    &quot;application&quot;, :media =&gt; &quot;all&quot; %&gt;
+</span><span class='line'>  <span class="err">&lt;</span>%= javascript_include_tag &quot;application&quot; %&gt;
+</span><span class='line'>  <span class="err">&lt;</span>%= csrf_meta_tags %&gt;
+</span><span class='line'><span class="nt">&lt;/head&gt;</span>
+</span><span class='line'><span class="nt">&lt;body&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;div</span> <span class="na">data-yield=</span><span class="s">&quot;main&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nt">&lt;/body&gt;</span>
+</span><span class='line'><span class="nt">&lt;/html&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这时打开主页，并打开console，看到一个错误
+Uncaught DevelopmentError: Please define <code>routingKey</code> on the prototype of PostsController in order for your controller to be minification safe. batman.js:750</p>
+
+<p>这是因为rails js会压缩，如果你压缩js的话，这个无需介意，不过我们的js需要压缩，所以我们必须在controller里面写入这一行代码,代码如下:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="k">class</span> <span class="nx">BatmatBlog</span><span class="p">.</span><span class="nx">PostsController</span> <span class="k">extends</span> <span class="nx">Batman</span><span class="p">.</span><span class="nx">Controller</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nv">routingKey: </span><span class="s">&quot;posts&quot;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nv">index: </span><span class="nf">(params) -&gt;</span>
+</span><span class='line'>    <span class="nx">BatmatBlog</span><span class="p">.</span><span class="nx">Post</span><span class="p">.</span><span class="nx">load</span> <span class="nf">(err, posts) =&gt;</span>
+</span><span class='line'>      <span class="nx">@set</span> <span class="s">&#39;posts&#39;</span><span class="p">,</span> <span class="nx">posts</span>
+</span><span class='line'>  <span class="nv">show: </span><span class="nf">(params) -&gt;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">new</span><span class="o">:</span> <span class="nf">(params) -&gt;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nv">create: </span><span class="nf">(params) -&gt;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nv">edit: </span><span class="nf">(params) -&gt;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nv">update: </span><span class="nf">(params) -&gt;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nv">destroy: </span><span class="nf">(params) -&gt;</span>
+</span><span class='line'>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>现在来写new的view和controller action</p>
+
+<p>新建app/assets/javascipts/views/posts/new.html.erb</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'>form class=&quot;new-post&quot; accept-charset=&quot;utf-8&quot; data-event-submit=&quot;create&quot; data-formfor-post=&quot;post&quot;&gt;
+</span><span class='line'>  <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">data-bind=</span><span class="s">&quot;post.title&quot;</span> <span class="na">name=</span><span class="s">&quot;post[title]&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">data-bind=</span><span class="s">&quot;post.content&quot;</span> <span class="na">name=</span><span class="s">&quot;post[content]&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;file&quot;</span> <span class="na">data-bind=</span><span class="s">&quot;post.image&quot;</span> <span class="na">name=</span><span class="s">&quot;post[image]&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span> <span class="na">value=</span><span class="s">&quot;save&quot;</span><span class="nt">&gt;</span>
+</span><span class='line'><span class="nt">&lt;/form&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>然后写new和create方法</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="k">new</span><span class="o">:</span> <span class="nf">(params) -&gt;</span>
+</span><span class='line'>    <span class="nx">@set</span> <span class="s">&quot;post&quot;</span><span class="p">,</span> <span class="k">new</span> <span class="nx">BatmatBlog</span><span class="p">.</span><span class="nx">Post</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nv">create: </span><span class="nf">(params) -&gt;</span>
+</span><span class='line'>    <span class="nx">@get</span><span class="p">(</span><span class="s">&#39;post&#39;</span><span class="p">).</span><span class="nx">save</span> <span class="nf">(err) =&gt;</span>
+</span><span class='line'>      <span class="k">if</span> <span class="nx">err</span>
+</span><span class='line'>        <span class="c1"># 做一些错误处理</span>
+</span><span class='line'>        <span class="k">throw</span> <span class="nx">err</span>
+</span><span class='line'>      <span class="k">else</span>
+</span><span class='line'>        <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByName</span><span class="p">(</span><span class="s">&quot;post[image]&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="nv">value = </span><span class="s">&quot;&quot;</span> <span class="c1"># 因为图片上传之后，你再次新建的时候记录还是在的，所以我们要手动清楚掉</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
