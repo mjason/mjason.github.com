@@ -139,7 +139,7 @@
 1. 文章要有标题，内容和图片
 2. 无刷新，整站使用ajax</p>
 
-<h2>go</h2>
+<h2>ruby</h2>
 
 <p>我们需要使用使用基础的命令来生成一个项目</p>
 
@@ -228,6 +228,235 @@ config/routes.rb</p>
 </span><span class='line'><span class="cm"> */</span>
 </span><span class='line'>
 </span><span class='line'><span class="k">@import</span> <span class="s2">&quot;bootstrap&quot;</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在application.js添加以下内容</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="c1">//= require jquery</span>
+</span><span class='line'><span class="c1">//= require jquery_ujs</span>
+</span><span class='line'><span class="c1">//= require bootstrap</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// Batman.js and its adapters</span>
+</span><span class='line'><span class="c1">//= require batman/es5-shim</span>
+</span><span class='line'><span class="c1">//= require batman/batman</span>
+</span><span class='line'><span class="c1">//= require batman/batman.jquery</span>
+</span><span class='line'><span class="c1">//= require batman/batman.rails</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">//= require batmat_blog</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">//= require_tree ./models</span>
+</span><span class='line'><span class="c1">//= require_tree ./controllers</span>
+</span><span class='line'><span class="c1">//= require_tree ./helpers</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="c1">//= require_tree .</span>
+</span><span class='line'><span class="c1">// Run the Batman app</span>
+</span><span class='line'><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>  <span class="nx">BatmatBlog</span><span class="p">.</span><span class="nx">run</span><span class="p">();</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>因为我们需要上传文件，所以我们需要使用carrierwave来做</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">rails</span> <span class="nx">generate</span> <span class="nx">uploader</span> <span class="nx">image</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>修改model<br/>
+app/models/post.rb</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Post</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
+</span><span class='line'>  <span class="n">attr_accessible</span> <span class="ss">:content</span><span class="p">,</span> <span class="ss">:image</span><span class="p">,</span> <span class="ss">:title</span>
+</span><span class='line'>  <span class="n">mount_uploader</span> <span class="ss">:image</span><span class="p">,</span> <span class="no">ImageUploader</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>好了接下来我们需要进入batman，batman也为了我们准备了很多很有用生成器</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="ss">Batman</span><span class="p">:</span>
+</span><span class='line'>  <span class="ss">batman</span><span class="p">:</span><span class="n">controller</span>
+</span><span class='line'>  <span class="ss">batman</span><span class="p">:</span><span class="n">helper</span>
+</span><span class='line'>  <span class="ss">batman</span><span class="p">:</span><span class="n">install</span>
+</span><span class='line'>  <span class="ss">batman</span><span class="p">:</span><span class="n">model</span>
+</span><span class='line'>  <span class="ss">batman</span><span class="p">:</span><span class="n">scaffold</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>我们使用batman:scaffold来创建我们需要的东西，也方便我们熟悉batman的写法</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">rails</span> <span class="n">g</span> <span class="ss">batman</span><span class="p">:</span><span class="n">scaffold</span> <span class="n">post</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>batman</h2>
+
+<p>打开app/assets/javascipts/post.js</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="k">class</span> <span class="nx">BatmatBlog</span><span class="p">.</span><span class="nx">Post</span> <span class="k">extends</span> <span class="nx">Batman</span><span class="p">.</span><span class="nx">Model</span>
+</span><span class='line'>  <span class="vi">@storageKey: </span><span class="s">&#39;posts&#39;</span>
+</span><span class='line'>  <span class="nx">@persist</span> <span class="nx">Batman</span><span class="p">.</span><span class="nx">RailsStorage</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nx">@encode</span> <span class="s">&quot;title&quot;</span><span class="p">,</span> <span class="s">&quot;content&quot;</span><span class="p">,</span> <span class="s">&quot;image&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>下面解释一下上面几个东西，因为我的英语翻译确实比较烂，所以还是直接引用英文了</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nx">@storageKey</span> <span class="o">is</span> <span class="nx">a</span> <span class="k">class</span> <span class="nx">level</span> <span class="nx">option</span> <span class="nx">which</span> <span class="nx">gives</span> <span class="nx">the</span> <span class="nx">storage</span> <span class="nx">adapters</span> <span class="nx">something</span> <span class="nx">to</span> <span class="nx">interpolate</span> <span class="nx">into</span> <span class="nx">their</span> <span class="nx">specific</span> <span class="nx">key</span> <span class="nx">generation</span> <span class="nx">schemes</span><span class="p">.</span> <span class="nx">In</span> <span class="nx">the</span> <span class="nx">case</span> <span class="k">of</span> <span class="nx">LocalStorage</span> <span class="o">or</span> <span class="nx">SessionStorage</span> <span class="nx">adapters</span><span class="p">,</span> <span class="nx">the</span> <span class="nx">storageKey</span> <span class="nx">defines</span> <span class="nx">what</span> <span class="nx">namespace</span> <span class="nx">to</span> <span class="nx">store</span> <span class="k">this</span> <span class="nx">record</span> <span class="nx">under</span> <span class="k">in</span> <span class="nx">the</span> <span class="nx">localStorage</span> <span class="o">or</span> <span class="nx">sessionStorage</span> <span class="nx">host</span> <span class="nx">objects</span><span class="p">,</span> <span class="o">and</span> <span class="nx">with</span> <span class="nx">the</span> <span class="nx">case</span> <span class="k">of</span> <span class="nx">the</span> <span class="nx">RestStorage</span> <span class="nx">family</span> <span class="k">of</span> <span class="nx">adapters</span><span class="p">,</span> <span class="nx">the</span> <span class="nx">storageKey</span> <span class="nx">assists</span> <span class="k">in</span> <span class="nx">URL</span> <span class="nx">generation</span><span class="p">.</span> <span class="nx">See</span> <span class="nx">the</span> <span class="nx">documentation</span> <span class="k">for</span> <span class="nx">the</span> <span class="nx">storage</span> <span class="nx">adapter</span> <span class="k">of</span> <span class="nx">your</span> <span class="nx">choice</span> <span class="k">for</span> <span class="nx">more</span> <span class="nx">information</span><span class="p">.</span>
+</span><span class='line'><span class="nx">The</span> <span class="nx">default</span> <span class="nx">storageKey</span> <span class="o">is</span> <span class="kc">null</span><span class="p">.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nx">@persist</span> <span class="o">is</span> <span class="nx">how</span> <span class="nx">a</span> <span class="nx">Model</span> <span class="nx">subclass</span> <span class="o">is</span> <span class="nx">told</span> <span class="nx">to</span> <span class="nx">persist</span> <span class="nx">itself</span> <span class="k">by</span> <span class="nx">means</span> <span class="k">of</span> <span class="nx">a</span> <span class="nx">StorageAdapter</span><span class="p">.</span> <span class="nx">@persist</span> <span class="nx">accepts</span> <span class="nx">either</span> <span class="nx">a</span> <span class="nx">StorageAdapter</span> <span class="k">class</span> <span class="o">or</span> <span class="nx">instance</span> <span class="o">and</span> <span class="nx">will</span> <span class="k">return</span> <span class="nx">either</span> <span class="nx">the</span> <span class="nx">instantiated</span> <span class="k">class</span> <span class="o">or</span> <span class="nx">the</span> <span class="nx">instance</span> <span class="nx">passed</span> <span class="nx">to</span> <span class="nx">it</span> <span class="k">for</span> <span class="nx">further</span> <span class="nx">modification</span><span class="p">.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nx">@encode</span> <span class="nx">specifies</span> <span class="nx">a</span> <span class="nx">list</span> <span class="k">of</span> <span class="nx">keys</span> <span class="nx">a</span> <span class="nx">model</span> <span class="nx">should</span> <span class="nx">expect</span> <span class="nx">from</span> <span class="o">and</span> <span class="nx">send</span> <span class="nx">back</span> <span class="nx">to</span> <span class="nx">a</span> <span class="nx">storage</span> <span class="nx">adapter</span><span class="p">,</span> <span class="o">and</span> <span class="nx">any</span> <span class="nx">transforms</span> <span class="nx">to</span> <span class="nx">apply</span> <span class="nx">to</span> <span class="nx">those</span> <span class="nx">attributes</span> <span class="nx">as</span> <span class="nx">they</span> <span class="nx">enter</span> <span class="o">and</span> <span class="nx">exit</span> <span class="nx">the</span> <span class="nx">world</span> <span class="k">of</span> <span class="nx">Batman</span> <span class="k">in</span> <span class="nx">the</span> <span class="nx">optional</span> <span class="nx">encoderObject</span><span class="p">.</span>
+</span><span class='line'><span class="nx">The</span> <span class="nx">encoderObject</span> <span class="nx">should</span> <span class="nx">have</span> <span class="nx">an</span> <span class="nx">encode</span> <span class="o">and/or</span> <span class="nx">a</span> <span class="nx">decode</span> <span class="nx">key</span> <span class="nx">which</span> <span class="nx">point</span> <span class="nx">to</span> <span class="nx">functions</span><span class="p">.</span> <span class="nx">The</span> <span class="nx">functions</span> <span class="nx">accept</span> <span class="nx">the</span> <span class="s">&quot;raw&quot;</span> <span class="nx">data</span> <span class="p">(</span><span class="nx">the</span> <span class="nx">Batman</span> <span class="nx">land</span> <span class="nx">value</span> <span class="k">in</span> <span class="nx">the</span> <span class="nx">case</span> <span class="k">of</span> <span class="nx">encode</span><span class="p">,</span> <span class="o">and</span> <span class="nx">the</span> <span class="nx">backend</span> <span class="nx">land</span> <span class="nx">value</span> <span class="k">in</span> <span class="nx">the</span> <span class="nx">case</span> <span class="k">of</span> <span class="nx">decode</span><span class="p">),</span> <span class="o">and</span> <span class="nx">should</span> <span class="k">return</span> <span class="nx">the</span> <span class="nx">data</span> <span class="nx">suitable</span> <span class="k">for</span> <span class="nx">the</span> <span class="nx">other</span> <span class="nx">side</span> <span class="k">of</span> <span class="nx">the</span> <span class="nx">link</span><span class="p">.</span> <span class="nx">The</span> <span class="nx">functions</span> <span class="nx">should</span> <span class="nx">have</span> <span class="nx">the</span> <span class="nx">following</span> <span class="nx">signatures</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>接下来我们进入controller</p>
+
+<p>我们可以看到batman为我们生成了基本的index show create update</p>
+
+<p>不过我们因为需要有一个get action来生成new和edit
+所以我们加上这两个方法，代码就如下面这个样子:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="k">class</span> <span class="nx">BatmatBlog</span><span class="p">.</span><span class="nx">PostsController</span> <span class="k">extends</span> <span class="nx">Batman</span><span class="p">.</span><span class="nx">Controller</span>
+</span><span class='line'>  <span class="nv">index: </span><span class="nf">(params) -&gt;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nv">show: </span><span class="nf">(params) -&gt;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">new</span><span class="o">:</span> <span class="nf">(params) -&gt;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nv">create: </span><span class="nf">(params) -&gt;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nv">edit: </span><span class="nf">(params) -&gt;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nv">update: </span><span class="nf">(params) -&gt;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nv">destroy: </span><span class="nf">(params) -&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>现在先放着，不写实现先，我们需要写路由了
+这个时候，可以说说路由在那里实现了，我们看以我们项目名称命名的coffee文件
+app/assets/javascipts/batmat_blog.js.coffee</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+</pre></td><td class='code'><pre><code class='coffeescript'><span class='line'><span class="nb">window</span><span class="p">.</span><span class="nv">BatmatBlog = </span><span class="k">class</span> <span class="nx">BatmatBlog</span> <span class="k">extends</span> <span class="nx">Batman</span><span class="p">.</span><span class="nx">App</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1"># @root &#39;controller#all&#39;</span>
+</span><span class='line'>  <span class="c1"># @route &#39;/controller/:id&#39;, &#39;controller#show&#39;, resource: &#39;model&#39;, action: &#39;show&#39;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nx">@</span><span class="kc">on</span> <span class="s">&#39;run&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+</span><span class='line'>    <span class="nx">console</span><span class="o">?</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;Running ....&quot;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nx">@</span><span class="kc">on</span> <span class="s">&#39;ready&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+</span><span class='line'>    <span class="nx">console</span><span class="o">?</span><span class="p">.</span><span class="nx">log</span> <span class="s">&quot;BatmatBlog ready for use.&quot;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="vi">@flash: </span><span class="nx">Batman</span><span class="p">()</span>
+</span><span class='line'>  <span class="nx">@flash</span><span class="p">.</span><span class="nx">accessor</span>
+</span><span class='line'>    <span class="nv">get: </span><span class="nf">(key) -&gt;</span> <span class="nx">@</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span>
+</span><span class='line'>    <span class="nv">set: </span><span class="nf">(key, value) -&gt;</span>
+</span><span class='line'>      <span class="nx">@</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="nx">value</span>
+</span><span class='line'>      <span class="k">if</span> <span class="nx">value</span> <span class="o">isnt</span> <span class="s">&#39;&#39;</span>
+</span><span class='line'>        <span class="nx">setTimeout</span> <span class="o">=&gt;</span>
+</span><span class='line'>          <span class="nx">@set</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">)</span>
+</span><span class='line'>        <span class="p">,</span> <span class="mi">2000</span>
+</span><span class='line'>      <span class="nx">value</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="vi">@flashSuccess: </span><span class="nf">(message) -&gt;</span> <span class="nx">@set</span> <span class="s">&#39;flash.success&#39;</span><span class="p">,</span> <span class="nx">message</span>
+</span><span class='line'>  <span class="vi">@flashError: </span><span class="nf">(message) -&gt;</span>  <span class="nx">@set</span> <span class="s">&#39;flash.error&#39;</span><span class="p">,</span> <span class="nx">message</span>
 </span></code></pre></td></tr></table></div></figure>
 
 

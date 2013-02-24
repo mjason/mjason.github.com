@@ -4,7 +4,7 @@
   <title><![CDATA[Category: 前端mvc | 天涯望帆]]></title>
   <link href="http://mjason.github.com/blog/categories/前端mvc/atom.xml" rel="self"/>
   <link href="http://mjason.github.com/"/>
-  <updated>2013-02-24T23:11:55+08:00</updated>
+  <updated>2013-02-24T23:15:02+08:00</updated>
   <id>http://mjason.github.com/</id>
   <author>
     <name><![CDATA[MJ（天涯望帆）]]></name>
@@ -181,7 +181,7 @@ rails g batman:scaffold post
 <h2>batman</h2>
 
 <p>打开app/assets/javascipts/post.js
-```coffee
+```coffeescript
 class BatmatBlog.Post extends Batman.Model
   @storageKey: 'posts'
   @persist Batman.RailsStorage</p>
@@ -211,7 +211,7 @@ The encoderObject should have an encode and/or a decode key which point to funct
 
 <p>不过我们因为需要有一个get action来生成new和edit
 所以我们加上这两个方法，代码就如下面这个样子:
-```coffee
+```coffeescript
 class BatmatBlog.PostsController extends Batman.Controller
   index: (params) -></p>
 
@@ -231,7 +231,7 @@ class BatmatBlog.PostsController extends Batman.Controller
 这个时候，可以说说路由在那里实现了，我们看以我们项目名称命名的coffee文件
 app/assets/javascipts/batmat_blog.js.coffee</p>
 
-<p>```coffee
+<p>```coffeescript
 window.BatmatBlog = class BatmatBlog extends Batman.App</p>
 
 <p>  # @root 'controller#all'
