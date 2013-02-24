@@ -463,7 +463,7 @@ app/assets/javascipts/batmat_blog.js.coffee</p>
 </span></code></pre></td></tr></table></div></figure>
 
 
-
+<p>我们需要添加路由，和指定view的存放位置</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -560,7 +560,7 @@ app/assets/javascipts/batmat_blog.js.coffee</p>
 <p>这时打开主页，并打开console，看到一个错误
 Uncaught DevelopmentError: Please define <code>routingKey</code> on the prototype of PostsController in order for your controller to be minification safe. batman.js:750</p>
 
-<p>这是因为rails js会压缩，如果你压缩js的话，这个无需介意，不过我们的js需要压缩，所以我们必须在controller里面写入这一行代码,代码如下:</p>
+<p>这是因为rails js会压缩，如果你不压缩js的话，这个无需介意，不过我们的js需要压缩，所以我们必须在controller里面写入这一行代码,代码如下:</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
