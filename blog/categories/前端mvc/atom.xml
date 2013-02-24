@@ -4,7 +4,7 @@
   <title><![CDATA[Category: 前端mvc | 天涯望帆]]></title>
   <link href="http://mjason.github.com/blog/categories/前端mvc/atom.xml" rel="self"/>
   <link href="http://mjason.github.com/"/>
-  <updated>2013-02-25T00:05:53+08:00</updated>
+  <updated>2013-02-25T00:06:31+08:00</updated>
   <id>http://mjason.github.com/</id>
   <author>
     <name><![CDATA[MJ（天涯望帆）]]></name>
@@ -362,7 +362,7 @@ form class="new-post" accept-charset="utf-8" data-event-submit="create" data-for
 </code></p>
 
 <p>然后写new和create方法
-```coffeescipts
+```coffeescipt
 new: (params) -></p>
 
 <pre><code>@set "post", new BatmatBlog.Post()
